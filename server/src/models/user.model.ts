@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Provider } from "src/types/EProvider";
 import { Roles } from "src/types/ERoles";
 
-const accountSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -53,10 +53,13 @@ const accountSchema = new mongoose.Schema(
       type: Date,
       default: "0000-00-00",
     },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
-const Account = mongoose.model("Account", accountSchema);
+const User = mongoose.model("User", userSchema);
 
-export default Account;
+export default User;
