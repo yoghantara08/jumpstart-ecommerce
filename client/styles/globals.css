@@ -4,10 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
 .button-primary {
-  @apply px-5 py-2 border bg-blue-500 text-white rounded font-semibold;
+  @apply px-5 py-2 border bg-blue-500 border-blue-500 text-white rounded font-semibold hover:opacity-80 transition duration-150;
 }
 
 .button-primary-outlined {
-  @apply px-5 py-2 border border-blue-500 text-blue-500 rounded font-semibold;
+  @apply px-5 py-2 border border-blue-500 text-blue-500 rounded font-semibold hover:bg-blue-100 transition duration-150;
 }

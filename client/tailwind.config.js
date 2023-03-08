@@ -13,6 +13,14 @@ module.exports = {
       colors: {
         light: "#FBFBFB",
         dark: "#3A3A3A",
+        cream1: "#F9F1E7",
+        cream2: "#FCF8F3",
+      },
+      backgroundColor: {
+        light: "#FBFBFB",
+        dark: "#3A3A3A",
+        cream1: "#F9F1E7",
+        cream2: "#FCF8F3",
       },
     },
   },
