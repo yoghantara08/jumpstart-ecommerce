@@ -53,10 +53,10 @@ const MobileNavigation = () => {
             className="absolute right-0 top-0 left-0 bottom-0 h-screen flex flex-col 
             text-center font-semibold gap-3 py-5 bg-cream1 pt-20"
           >
-            <li className="hover:font-bold">
+            <li>
               <Link href="/">Home</Link>
             </li>
-            <li className="hover:font-bold">
+            <li className="flex justify-center">
               <CategoryDropdown />
             </li>
             <li>
