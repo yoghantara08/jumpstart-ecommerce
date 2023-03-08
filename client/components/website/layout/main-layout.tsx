@@ -24,10 +24,12 @@ const MainLayout: React.FC<Props> = ({ children, title }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="grid grid-rows-[auto_1fr_auto] min-h-screen font-montserrat text-dark">
-        <nav className="flex px-3 lg:px-8 py-3 shadow items-center fixed top-0 right-0 left-0 bg-white">
-          <DesktopNavigation />
-          <MobileNavigation />
-        </nav>
+        <header>
+          <nav className="flex px-3 lg:px-8 py-3 shadow items-center bg-white fixed top-0 left-0 w-full">
+            <DesktopNavigation />
+            <MobileNavigation />
+          </nav>
+        </header>
         <main className="mt-[66px]">{children}</main>
         <MainFooter />
       </div>
