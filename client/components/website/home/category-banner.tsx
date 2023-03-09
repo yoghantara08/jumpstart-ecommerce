@@ -2,10 +2,10 @@ import CategoryText from "./category-text";
 
 const CategoryBanner = () => {
   return (
-    <section className="flex justify-center bg-cream1">
+    <section className="flex justify-center bg-cream1 pb-5">
       <div
         className="container grid md:grid-cols-3 md:grid-rows-2 gap-3 md:gap-4 lg:gap-5 
-        py-5 md:py-8 px-4 md:min-h-[650px]"
+        py-6 md:py-8 px-4 md:min-h-[650px]"
       >
         <div
           className="md:row-span-2 category-banner"

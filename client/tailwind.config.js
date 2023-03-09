@@ -22,6 +22,9 @@ module.exports = {
         cream1: "#F9F1E7",
         cream2: "#FCF8F3",
       },
+      screens: {
+        "2xl": "1536px",
+      },
     },
   },
   plugins: [],

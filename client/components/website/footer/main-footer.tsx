@@ -39,12 +39,16 @@ const MainFooter = () => {
       <div className="flex justify-center bg-cream2 py-3">
         <div className="container flex justify-between flex-wrap gap-5 py-3 px-5 md:px-8">
           <ul className="max-w-[15rem] space-y-2">
-            <Link href="/" className="text-lg md:text-xl font-bold">
-              Jumpstart.
-            </Link>
-            <p className="text-sm md:text-base">
-              Worldwide retail-chain owns 750 stores nationwide
-            </p>
+            <li>
+              <Link href="/" className="text-lg md:text-xl font-bold">
+                Jumpstart.
+              </Link>
+            </li>
+            <li>
+              <p className="text-sm md:text-base">
+                Worldwide retail-chain owns 750 stores nationwide
+              </p>
+            </li>
             <li className="flex items-center space-x-2 text-sm md:text-base">
               <IoLocationSharp className="text-md md:text-lg" />
               <span>Bali, Indonesia</span>

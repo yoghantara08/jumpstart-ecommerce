@@ -14,7 +14,7 @@ const CategoryText: React.FC<Props> = ({ title, itemCount, path }) => {
       <p className="font-semibold text-slate-700 text-sm md:text-base">
         {itemCount} Items
       </p>
-      <h2 className="uppercase font-bold text-xl md:text-2xl text-slate-800">
+      <h2 className="uppercase font-bold text-xl md:text-2xl lg:text-3xl text-slate-800">
         {title}
       </h2>
       <Link
