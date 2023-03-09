@@ -3,6 +3,7 @@ import MainLayout from "@/components/website/layout/main-layout";
 import AboutHero from "@/components/website/about/hero";
 import AboutCounter from "@/components/website/about/counter";
 import AboutPartners from "@/components/website/about/partners";
+import AboutOurTeam from "@/components/website/about/our-team";
 
 const AboutPage = () => {
   return (
@@ -10,6 +11,7 @@ const AboutPage = () => {
       <AboutHero />
       <AboutCounter />
       <AboutPartners />
+      <AboutOurTeam />
     </MainLayout>
   );
 };
