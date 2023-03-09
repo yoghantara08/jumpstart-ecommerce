@@ -31,13 +31,8 @@ const Input: React.FC<Props> = ({
         type={type}
         placeholder={placeholder}
         {...register(name, { ...validation })}
-        className={`relative inline-flex w-full rounded leading-none transition-colors 
-        ease-in-out placeholder-gray-500 text-gray-700 bg-gray-50 border
-      border-gray-300 hover:border-blue-400 focus:outline-none focus:border-blue-400 
-      focus:ring-blue-400 focus:ring-1 focus:ring-opacity-30 ${className} ${
-          errors[name]
-            ? "transition-colors focus:outline-none focus:ring-2 focus:ring-opacity-50 border-red-600 hover:border-red-600 focus:border-red-600 focus:ring-red-600"
-            : ""
+        className={`form-input ${className} ${
+          errors[name] ? "form-input-error" : ""
         }`}
       />
       <ErrorMessage

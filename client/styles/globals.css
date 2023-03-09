@@ -22,3 +22,14 @@ body {
   @apply bg-cover bg-center py-5 px-5 min-h-[180px] rounded-md relative overflow-hidden 
   before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0 before:bg-[rgba(125,125,125,0.2)];
 }
+
+.form-input {
+  @apply relative inline-flex w-full rounded leading-none transition-colors ease-in-out placeholder-gray-500 
+  text-gray-700 bg-gray-50 border border-gray-300 hover:border-blue-400 focus:outline-none focus:border-blue-400 
+  focus:ring-blue-400 focus:ring-1 focus:ring-opacity-30;
+}
+
+.form-input-error {
+  @apply transition-colors focus:outline-none focus:ring-2 focus:ring-opacity-50 border-red-600 hover:border-red-600 
+  focus:border-red-600 focus:ring-red-600;
+}
