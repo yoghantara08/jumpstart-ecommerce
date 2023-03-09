@@ -17,3 +17,8 @@ body {
 .button-primary-outlined {
   @apply px-5 py-2 border border-blue-500 text-blue-500 rounded font-semibold hover:bg-blue-100 transition duration-150;
 }
+
+.category-banner {
+  @apply bg-cover bg-center py-5 px-5 min-h-[180px] rounded-md relative overflow-hidden 
+  before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0 before:bg-[rgba(125,125,125,0.2)];
+}

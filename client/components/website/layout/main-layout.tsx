@@ -23,9 +23,9 @@ const MainLayout: React.FC<Props> = ({ children, title }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="grid grid-rows-[auto_1fr_auto] min-h-screen font-montserrat text-dark">
+      <div className="grid grid-rows-[auto_1fr_auto] min-h-screen font-roboto text-dark">
         <header>
-          <nav className="flex px-3 lg:px-8 py-3 shadow items-center bg-white fixed top-0 left-0 w-full">
+          <nav className="flex px-3 lg:px-8 py-3 shadow items-center bg-white fixed top-0 left-0 z-30 w-full">
             <DesktopNavigation />
             <MobileNavigation />
           </nav>
