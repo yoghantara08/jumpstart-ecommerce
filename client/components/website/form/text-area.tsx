@@ -14,7 +14,7 @@ interface Props {
   validation?: RegisterOptions;
 }
 
-const Input: React.FC<Props> = ({
+const TextArea: React.FC<Props> = ({
   label,
   name,
   className,
@@ -27,12 +27,12 @@ const Input: React.FC<Props> = ({
   return (
     <div>
       {label && <label className="mb-1 block">{label}</label>}
-      <input
+      <textarea
         name={name}
         type={type}
         placeholder={placeholder}
         {...register(name, { ...validation })}
-        className={`form-input ${className} ${
+        className={`form-input resize-none ${className} ${
           errors[name] ? "form-input-error" : ""
         }`}
       />
@@ -50,4 +50,4 @@ const Input: React.FC<Props> = ({
     </div>
   );
 };
-export default Input;
+export default TextArea;
