@@ -37,10 +37,10 @@ const MainFooter = () => {
   return (
     <footer>
       <div className="flex justify-center bg-cream2 py-3">
-        <div className="container flex justify-between flex-wrap gap-5 py-3 px-5 md:px-8">
+        <div className="container lg:max-w-6xl xl:max-w-7xl flex justify-between flex-wrap gap-5 py-3 px-5 md:px-8">
           <ul className="max-w-[15rem] space-y-2">
             <li>
-              <Link href="/" className="text-lg md:text-xl font-bold">
+              <Link href="/" className="text-2xl font-bold">
                 Jumpstart.
               </Link>
             </li>
