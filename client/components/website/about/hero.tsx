@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const HeroAbout = () => {
+const AboutHero = () => {
   return (
     <section className="bg-cream1 flex justify-center min-h-[300px]">
       <div className="container grid sm:grid-cols-2 gap-5 pt-5 px-4 overflow-hidden">
@@ -28,4 +28,4 @@ const HeroAbout = () => {
   );
 };
 
-export default HeroAbout;
+export default AboutHero;

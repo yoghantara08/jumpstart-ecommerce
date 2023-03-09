@@ -1,13 +1,15 @@
 import React from "react";
-import HeroAbout from "@/components/website/about/hero";
 import MainLayout from "@/components/website/layout/main-layout";
+import AboutHero from "@/components/website/about/hero";
 import AboutCounter from "@/components/website/about/counter";
+import AboutPartners from "@/components/website/about/partners";
 
 const AboutPage = () => {
   return (
     <MainLayout title="About Us">
-      <HeroAbout />
+      <AboutHero />
       <AboutCounter />
+      <AboutPartners />
     </MainLayout>
   );
 };
