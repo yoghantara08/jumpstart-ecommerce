@@ -30,7 +30,10 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)} className="p-5 space-y-3">
+    <form
+      onSubmit={handleSubmit(submitHandler)}
+      className="p-5 space-y-3 order-2 md:order-1"
+    >
       <Input
         errors={errors}
         register={register}

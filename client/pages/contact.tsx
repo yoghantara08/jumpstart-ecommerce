@@ -14,7 +14,7 @@ const ContactPage = () => {
             Our Customer Service Will Answer All Your Questions
           </p>
         </div>
-        <div className="grid md:grid-cols-2 divide-y-2 md:divide-y-0 md:divide-x-2 mt-6 w-full max-w-4xl rounded-lg border border-gray-300">
+        <div className="grid md:grid-cols-2 overflow-hidden mt-6 w-full max-w-4xl rounded-lg border border-gray-300">
           <ContactForm />
           <ContactInformation />
         </div>
