@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { emailPattern } from "@/utils/email-pattern";
+import { emailPattern } from "@/utils/validation-pattern";
 import Input from "../form/input";
 import TextArea from "../form/text-area";
 
