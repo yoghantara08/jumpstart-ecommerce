@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { emailPattern } from "@/utils/email-pattern";
 import Input from "../form/input";
 import TextArea from "../form/text-area";
 
@@ -8,11 +9,6 @@ interface IContactForm {
   email: string;
   question: string;
 }
-
-const emailPattern = {
-  value: new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$", "ig"),
-  message: "Enter a valid email address.",
-};
 
 const ContactForm = () => {
   const {
@@ -66,7 +62,7 @@ const ContactForm = () => {
         }}
         className="p-3"
       />
-      <button type="submit" className="button-primary">
+      <button type="submit" className="button-primary py-2">
         Send Question
       </button>
     </form>

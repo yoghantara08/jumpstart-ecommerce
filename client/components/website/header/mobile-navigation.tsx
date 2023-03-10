@@ -61,14 +61,14 @@ const MobileNavigation = () => {
             </li>
             <li>
               <Link href="/login">
-                <button className="button-primary-outlined w-full max-w-[200px]">
+                <button className="button-primary-outlined py-2 w-full max-w-[200px]">
                   Login
                 </button>
               </Link>
             </li>
             <li>
               <Link href="/register">
-                <button className="button-primary w-full max-w-[200px]">
+                <button className="button-primary py-2 w-full max-w-[200px]">
                   Register
                 </button>
               </Link>

@@ -12,7 +12,7 @@ const AboutHero = () => {
           <p className="text-lg w-fit max-w-xs">
             Worldwide retail-chain owns 750 stores nationwide
           </p>
-          <Link href="/products" className="button-primary w-fit">
+          <Link href="/products" className="button-primary py-3 w-fit">
             Shopping Now
           </Link>
         </div>

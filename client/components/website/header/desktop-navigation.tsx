@@ -33,10 +33,14 @@ const DesktopNavigation = () => {
         </li> */}
 
         <li>
-          <button className="button-primary-outlined">Login</button>
+          <Link href="/login">
+            <button className="button-primary-outlined py-2">Login</button>
+          </Link>
         </li>
         <li>
-          <button className="button-primary">Register</button>
+          <Link href="/register">
+            <button className="button-primary py-2">Register</button>
+          </Link>
         </li>
       </ul>
     </div>
