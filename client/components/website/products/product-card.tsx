@@ -21,13 +21,13 @@ const ProductCard: React.FC<Props> = ({ className }) => {
             className="w-full h-full"
           />
         </div>
-        <div className="py-2 px-3 space-y-1">
+        <div className="py-2 px-3">
           <div className="text-sm text-blue-400 space-x-3">
             <span>Sports</span>
             <span>Best Sales</span>
           </div>
           <p className="font-medium">Nike Shoes 2023 - Brand New</p>
-          <p className="font-bold">$ 192,55</p>
+          <p className="font-bold mb-2">$ 192,55</p>
         </div>
       </div>
     </Link>

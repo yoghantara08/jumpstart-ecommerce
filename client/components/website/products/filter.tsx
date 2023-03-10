@@ -3,7 +3,7 @@ import FilterPrice from "./filter-price";
 
 const ProductFilter = () => {
   return (
-    <div className="w-full max-w-xs rounded bg-white border border-gray-200">
+    <div className="w-full md:max-w-[17rem] lg:max-w-xs h-fit rounded bg-white border border-gray-200">
       <div className="py-3 w-full p-5 bg-gray-200 rounded-t">
         <h2 className="text-lg font-medium">Filter Products</h2>
       </div>
