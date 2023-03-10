@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  className: string;
+  className?: string;
 }
 
 const ProductCard: React.FC<Props> = ({ className }) => {
