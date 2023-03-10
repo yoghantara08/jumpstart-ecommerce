@@ -5,7 +5,6 @@ import { navigationVariants } from "@/animation/navigation-motion";
 import SearchBar from "./search-bar";
 import { FiMenu, FiX } from "react-icons/fi";
 import useWindowSize from "@/hooks/useWindowSize";
-import CategoryDropdown from "./category-dropdown";
 import Link from "next/link";
 
 const MobileNavigation = () => {
@@ -57,7 +56,7 @@ const MobileNavigation = () => {
               <Link href="/">Home</Link>
             </li>
             <li className="flex justify-center">
-              <CategoryDropdown />
+              <Link href="/products">Products</Link>
             </li>
             <li>
               <Link href="/login">

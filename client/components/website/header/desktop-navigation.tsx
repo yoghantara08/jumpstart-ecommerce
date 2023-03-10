@@ -1,5 +1,4 @@
 import Link from "next/link";
-import CategoryDropdown from "./category-dropdown";
 import SearchBar from "./search-bar";
 // import { MdOutlineShoppingCart, MdMailOutline } from "react-icons/md";
 // import UserMenu from "./user-menu";
@@ -17,7 +16,7 @@ const DesktopNavigation = () => {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <CategoryDropdown />
+          <Link href="/products">Products</Link>
         </li>
       </ul>
       <SearchBar />

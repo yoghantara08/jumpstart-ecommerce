@@ -1,4 +1,4 @@
-import ProductCard from "../shared/product-card";
+import ProductCard from "../products/product-card";
 
 const FeaturedProducts = () => {
   return (
