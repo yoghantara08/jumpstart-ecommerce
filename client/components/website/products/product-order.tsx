@@ -10,7 +10,7 @@ const ProductOrder = () => {
   const [selectedAmount, setSelectedAmount] = useState<number>(1);
 
   return (
-    <div className="w-full max-w-xs h-fit rounded border border-gray-200 bg-white order-2 md:order-3 px-4 py-3">
+    <div className="w-full max-w-sm md:max-w-xs h-fit rounded border border-gray-200 bg-white order-2 md:order-3 px-4 py-3">
       <h2 className="mb-3 text-2xl font-medium">Order Product</h2>
       <div className="flex gap-3">
         <Listbox value={selectedAmount} onChange={setSelectedAmount}>
