@@ -15,12 +15,14 @@ module.exports = {
         dark: "#3A3A3A",
         cream1: "#F9F1E7",
         cream2: "#FCF8F3",
+        tosca: "#2EC1AC",
       },
       backgroundColor: {
         light: "#FBFBFB",
         dark: "#3A3A3A",
         cream1: "#F9F1E7",
         cream2: "#FCF8F3",
+        tosca: "#2EC1AC",
       },
       screens: {
         "2xl": "1536px",

@@ -9,7 +9,7 @@ const AboutHero = () => {
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold uppercase">
             About Us
           </h1>
-          <p className="text-lg w-fit max-w-xs">
+          <p className="text-lg w-fit max-w-xs font-montserrat">
             Worldwide retail-chain owns 750 stores nationwide
           </p>
           <Link href="/products" className="button-primary py-3 w-fit">

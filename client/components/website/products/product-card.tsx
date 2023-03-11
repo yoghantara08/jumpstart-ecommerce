@@ -8,9 +8,9 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ className }) => {
   return (
-    <Link href="/">
+    <Link href="/products/slug">
       <div
-        className={`${className} w-full rounded-xl overflow-hidden shadow bg-white`}
+        className={`${className} w-full rounded-xl overflow-hidden shadow bg-white font-montserrat`}
       >
         <div className="h-36 sm:h-44 object-cover">
           <Image

@@ -36,7 +36,7 @@ const FilterPrice = () => {
     <>
       <div className="mt-3">
         <input
-          className="form-input p-3"
+          className="form-input p-3 px-5"
           placeholder="Min price $"
           onChange={(e) => {
             const value = parseFloat(e.target.value);
@@ -52,7 +52,7 @@ const FilterPrice = () => {
       </div>
       <div className="mt-3">
         <input
-          className="form-input p-3"
+          className="form-input p-3 px-5"
           placeholder="Max price $"
           onChange={(e) => {
             const value = parseFloat(e.target.value);

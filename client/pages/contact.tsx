@@ -10,7 +10,7 @@ const ContactPage = () => {
           <h1 className="text-3xl lg:text-4xl xl:text-5xl uppercase font-bold">
             Contact Us
           </h1>
-          <p className="text-sm lg:text-base text-gray-500 font-medium">
+          <p className="text-sm lg:text-base text-gray-500 font-medium font-montserrat">
             Our Customer Service Will Answer All Your Questions
           </p>
         </div>

@@ -7,10 +7,10 @@ const AboutOurTeam = () => {
         <h2 className="font-semibold text-xl md:text-2xl lg:text-3xl">
           Meet Our Team
         </h2>
-        <p className="font-medium mt-3 mb-5 md:mb-10 text-gray-500">
+        <p className="font-medium mt-3 mb-5 md:mb-10 text-gray-500 font-montserrat">
           Get to Know the Creative Minds Behind Our Success
         </p>
-        <div className="grid md:grid-cols-3 gap-5 md:gap-10">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-10 ">
           <OurTeamCard
             name="Nikita Willy"
             occupation="CEO & FOUNDER"
