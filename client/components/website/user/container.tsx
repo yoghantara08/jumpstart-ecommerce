@@ -10,7 +10,7 @@ const UserContainer: React.FC<Props> = ({ children }) => {
     <div className="flex justify-center">
       <div className="md:w-full lg:container py-5 px-4 flex gap-4 w-full">
         <UserSidebar />
-        <div className="w-full rounded bg-white border border-gray-300 py-3 px-5">
+        <div className="w-full rounded bg-white border border-gray-300 p-5">
           {children}
         </div>
       </div>
