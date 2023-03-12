@@ -5,7 +5,7 @@ const UserPage = () => {
   const { push } = useRouter();
 
   useEffect(() => {
-    push("/user/dashboard");
+    push("/user/profile");
   }, [push]);
 
   return;
