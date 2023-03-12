@@ -1,0 +1,17 @@
+import MainLayout from "@/components/website/layout/main-layout";
+import UserContainer from "@/components/website/user/container";
+import UserSettingsImage from "@/components/website/user/settings-image";
+import React from "react";
+
+const UserSettingsPage = () => {
+  return (
+    <MainLayout title="Settings">
+      <UserContainer>
+        <h2 className="text-xl md:text-2xl font-medium">Settings</h2>
+        <UserSettingsImage />
+      </UserContainer>
+    </MainLayout>
+  );
+};
+
+export default UserSettingsPage;
