@@ -6,7 +6,7 @@ import AdminNavbar from "../header/navbar";
 import AdminSidebar from "../header/sidebar";
 
 interface Props {
-  title?: string;
+  title: string;
   children: React.ReactNode;
 }
 
@@ -40,11 +40,11 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex min-h-screen text-dark font-roboto">
+      <div className="flex min-h-screen text-dark font-roboto bg-adminBg">
         <AdminSidebar controls={controls} />
-        <div className="lg:ml-[300px]">
-          <AdminNavbar controls={controls} />
-          <main className="p-5 bg-adminBg">{children}</main>
+        <div className="lg:ml-[300px] w-full">
+          <AdminNavbar controls={controls} title={title} />
+          <main className="p-5">{children}</main>
         </div>
       </div>
     </>

@@ -16,7 +16,7 @@ module.exports = {
         cream1: "#F9F1E7",
         cream2: "#FCF8F3",
         tosca: "#2EC1AC",
-        darkBlue: "#363E54",
+        darkBlue: "#2d354b",
         lightBlue: "#23A6F0",
       },
       backgroundColor: {
@@ -26,7 +26,7 @@ module.exports = {
         cream2: "#FCF8F3",
         tosca: "#2EC1AC",
         adminBg: "#F5F7FA",
-        darkBlue: "#363E54",
+        darkBlue: "#2d354b",
         lightBlue: "#23A6F0",
       },
       screens: {
