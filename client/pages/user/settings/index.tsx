@@ -1,5 +1,5 @@
 import MainLayout from "@/components/website/layout/main-layout";
-import UserContainer from "@/components/website/user/container";
+import UserContainer from "@/components/website/layout/container";
 import UserSettingsImage from "@/components/website/user/settings-image";
 import UserSettingsProfile from "@/components/website/user/settings-profile";
 import React from "react";

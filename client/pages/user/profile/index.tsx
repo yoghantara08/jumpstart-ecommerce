@@ -1,5 +1,5 @@
 import MainLayout from "@/components/website/layout/main-layout";
-import UserContainer from "@/components/website/user/container";
+import UserContainer from "@/components/website/layout/container";
 import ProfileContact from "@/components/website/user/profile-contact";
 import ProfileInformation from "@/components/website/user/profile-information";
 import Image from "next/image";
