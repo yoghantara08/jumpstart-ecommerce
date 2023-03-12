@@ -1,5 +1,7 @@
+import useWindowSize from "@/hooks/useWindowSize";
+import { useAnimation } from "framer-motion";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import AdminNavbar from "../header/navbar";
 import AdminSidebar from "../header/sidebar";
 
@@ -9,10 +11,23 @@ interface Props {
 }
 
 const AdminLayout: React.FC<Props> = ({ title, children }) => {
+  const { mobile } = useWindowSize();
+  const controls = useAnimation();
+
   let pageTitle: string = "Jumpstart";
   if (title) {
     pageTitle = title + " - Jumpstart";
   }
+
+  useEffect(() => {
+    if (mobile) {
+      controls.start("exit");
+    }
+
+    if (!mobile) {
+      controls.start("animate");
+    }
+  }, [controls, mobile]);
 
   return (
     <>
@@ -25,14 +40,13 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex min-h-screen">
-        <AdminSidebar />
-        <div>
-          <AdminNavbar />
-          <main>{children}</main>
+      <div className="flex min-h-screen text-dark font-roboto">
+        <AdminSidebar controls={controls} />
+        <div className="lg:ml-[300px]">
+          <AdminNavbar controls={controls} />
+          <main className="p-5 bg-adminBg">{children}</main>
         </div>
       </div>
-      ;
     </>
   );
 };

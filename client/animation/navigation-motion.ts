@@ -16,3 +16,17 @@ export const navigationVariants: Variants = {
     transition: { duration: 0.4 },
   },
 };
+
+export const adminSidebarVariants: Variants = {
+  initial: {
+    x: "-50vh",
+  },
+  animate: {
+    x: 0,
+    transition: { duration: 0.2 },
+  },
+  exit: {
+    x: "-50vh",
+    transition: { duration: 0.2 },
+  },
+};
