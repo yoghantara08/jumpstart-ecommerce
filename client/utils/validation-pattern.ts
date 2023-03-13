@@ -7,3 +7,8 @@ export const numberPattern = {
   value: /^[0-9]+$/,
   message: "Please enter a number",
 };
+
+export const noSpacePattern = {
+  value: /^\S*$/,
+  message: "No whitespace allowed",
+};

@@ -28,7 +28,7 @@ body {
 }
 
 .form-input {
-  @apply relative inline-flex w-full rounded leading-none transition-colors ease-in-out placeholder-gray-500 
+  @apply w-full rounded leading-none transition-colors ease-in-out placeholder-gray-500 
   text-gray-700 bg-gray-50 border border-gray-300 hover:border-blue-400 focus:outline-none focus:border-blue-400 
   focus:ring-blue-400 focus:ring-1 focus:ring-opacity-30;
 }

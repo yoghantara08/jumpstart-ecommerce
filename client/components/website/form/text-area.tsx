@@ -32,7 +32,7 @@ const TextArea: React.FC<Props> = ({
         type={type}
         placeholder={placeholder}
         {...register(name, { ...validation })}
-        className={`form-input resize-none ${className} ${
+        className={`form-input ${className} ${
           errors[name] ? "form-input-error" : ""
         }`}
       />
