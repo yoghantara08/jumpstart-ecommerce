@@ -1,7 +1,4 @@
-import React from "react";
 import Link from "next/link";
-import { adminSidebarVariants } from "@/animation/navigation-motion";
-import { AnimatePresence, AnimationControls, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsBoxArrowInRight, BsChatLeftDots, BsShop } from "react-icons/bs";
@@ -48,51 +45,41 @@ const adminLinks = [
   },
 ];
 
-interface Props {
-  controls: AnimationControls;
-}
-
-const AdminSidebar: React.FC<Props> = ({ controls }) => {
+const AdminSidebar = () => {
   const { pathname } = useRouter();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.aside
-        className="flex flex-col justify-between gap-3 bg-darkBlue fixed top-0 bottom-0 w-[300px] 
+    <aside
+      className="flex flex-col justify-between gap-3 bg-darkBlue fixed top-0 bottom-0 w-[300px] 
         text-light p-8 mt-16 lg:mt-0 z-20"
-        variants={adminSidebarVariants}
-        initial="initial"
-        animate={controls}
-        exit="exit"
-      >
-        <div>
-          <h1 className="text-3xl font-bold italic mb-10">Jumpstart.</h1>
-          <ul className="grid gap-5">
-            {adminLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.path}
-                className={`${
-                  link.path === pathname && "bg-lightBlue"
-                } -ml-3 py-2 px-3 rounded block hover:bg-lightBlue`}
-              >
-                <li className="flex gap-3 items-center font-medium">
-                  {link.icon}
-                  <span>{link.name}</span>
-                </li>
-              </Link>
-            ))}
-          </ul>
-        </div>
-        <div
-          className="flex gap-3 items-center cursor-pointer text-red-600 w-fit rounded border 
+    >
+      <div>
+        <h1 className="text-3xl font-bold italic mb-10">Jumpstart.</h1>
+        <ul className="grid gap-5">
+          {adminLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.path}
+              className={`${
+                link.path === pathname && "bg-lightBlue"
+              } -ml-3 py-2 px-3 rounded block hover:bg-lightBlue`}
+            >
+              <li className="flex gap-3 items-center font-medium">
+                {link.icon}
+                <span>{link.name}</span>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+      <div
+        className="flex gap-3 items-center cursor-pointer text-red-600 w-fit rounded border 
         border-red-600 px-5 py-2 hover:bg-[#ff000010]"
-        >
-          <span className="text-lg">Logout</span>
-          <BsBoxArrowInRight className="w-5 h-5" />
-        </div>
-      </motion.aside>
-    </AnimatePresence>
+      >
+        <span className="text-lg">Logout</span>
+        <BsBoxArrowInRight className="w-5 h-5" />
+      </div>
+    </aside>
   );
 };
 

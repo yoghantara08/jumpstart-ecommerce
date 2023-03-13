@@ -1,7 +1,6 @@
 import useWindowSize from "@/hooks/useWindowSize";
-import { useAnimation } from "framer-motion";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../header/navbar";
 import AdminSidebar from "../header/sidebar";
 
@@ -12,7 +11,7 @@ interface Props {
 
 const AdminLayout: React.FC<Props> = ({ title, children }) => {
   const { mobile } = useWindowSize();
-  const controls = useAnimation();
+  const [toggle, setToggle] = useState<boolean>(true);
 
   let pageTitle: string = "Jumpstart";
   if (title) {
@@ -21,13 +20,13 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
 
   useEffect(() => {
     if (mobile) {
-      controls.start("exit");
+      setToggle(false);
     }
 
     if (!mobile) {
-      controls.start("animate");
+      setToggle(true);
     }
-  }, [controls, mobile]);
+  }, [mobile]);
 
   return (
     <>
@@ -41,9 +40,9 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen text-dark font-roboto bg-adminBg">
-        <AdminSidebar controls={controls} />
+        {toggle && <AdminSidebar />}
         <div className="lg:ml-[300px] w-full">
-          <AdminNavbar controls={controls} title={title} />
+          <AdminNavbar toggle={toggle} setToggle={setToggle} title={title} />
           <main className="p-5">{children}</main>
         </div>
       </div>

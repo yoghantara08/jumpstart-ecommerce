@@ -1,28 +1,27 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
-import Link from "next/link";
 import { Menu } from "@headlessui/react";
-import { AnimationControls } from "framer-motion";
-import { FiMenu, FiX } from "react-icons/fi";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { IoSettingsOutline } from "react-icons/io5";
 import { BiPowerOff } from "react-icons/bi";
+import { FiMenu, FiX } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 interface Props {
-  controls: AnimationControls;
+  toggle: boolean;
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
 }
 
-const AdminNavbar: React.FC<Props> = ({ controls, title }) => {
-  const [toggle, setToggle] = useState<boolean>(false);
+const AdminNavbar: React.FC<Props> = ({ toggle, setToggle, title }) => {
   const { mobile } = useWindowSize();
 
   useEffect(() => {
     if (!mobile) {
       setToggle(false);
     }
-  }, [mobile]);
+  }, [mobile, setToggle]);
 
   return (
     <div className="flex h-16 w-full bg-light items-center px-5 justify-between gap-3">
@@ -31,7 +30,6 @@ const AdminNavbar: React.FC<Props> = ({ controls, title }) => {
           <FiMenu
             className="w-7 h-7 cursor-pointer"
             onClick={() => {
-              controls.start("animate");
               setToggle(true);
             }}
           />
@@ -39,7 +37,6 @@ const AdminNavbar: React.FC<Props> = ({ controls, title }) => {
           <FiX
             className="w-7 h-7 cursor-pointer"
             onClick={() => {
-              controls.start("exit");
               setToggle(false);
             }}
           />
