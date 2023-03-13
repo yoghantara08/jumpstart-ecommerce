@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { AiFillCheckCircle, AiFillEye } from "react-icons/ai";
 
 const OrdersList = () => {
   return (
@@ -23,9 +23,6 @@ const OrdersList = () => {
               Total Amount
             </th>
             <th className="border border-slate-200 px-6 py-2 whitespace-nowrap">
-              View Details
-            </th>
-            <th className="border border-slate-200 px-6 py-2 whitespace-nowrap">
               Action
             </th>
           </tr>
@@ -45,18 +42,13 @@ const OrdersList = () => {
             <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
               $7,199.76
             </td>
+
             <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
-              <Link
-                href="/admin/orders/orderId"
-                className="px-4 py-2 rounded bg-lightBlue text-white"
-              >
-                View Details
-              </Link>
-            </td>
-            <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
-              <div className="flex gap-3">
-                <MdEdit className="w-6 h-6 text-green-600" />
-                <MdDelete className="w-6 h-6 text-red-600" />
+              <div className="flex items-center gap-3">
+                <Link href="/admin/orders/orderId">
+                  <AiFillEye className="w-10 h-10 text-lightBlue" />
+                </Link>
+                <AiFillCheckCircle className="w-8 h-8 text-green-600 cursor-pointer" />
               </div>
             </td>
           </tr>
