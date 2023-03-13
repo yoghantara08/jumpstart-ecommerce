@@ -17,9 +17,9 @@ const footerLinks = [
   {
     title: "Categories",
     links: [
-      { name: "Electronics", path: "/products/category/electronics" },
-      { name: "T-Shirt", path: "/products/category/t-shirt" },
-      { name: "Accessories", path: "/products/category/accessories" },
+      { name: "Electronics", path: "/products?category=electronics" },
+      { name: "T-Shirt", path: "/products?category=t-shirt" },
+      { name: "Accessories", path: "/products?category=accessories" },
     ],
   },
   {
