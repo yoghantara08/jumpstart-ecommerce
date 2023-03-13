@@ -6,7 +6,7 @@ import { RegisterOptions } from "react-hook-form";
 interface Props {
   name: string;
   label?: string;
-  type?: "text" | "email" | "password" | "number";
+  type?: "text" | "email" | "password" | "number" | "file";
   className?: string;
   placeholder?: string;
   errors: any;

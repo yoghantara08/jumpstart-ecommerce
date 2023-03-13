@@ -1,9 +1,9 @@
+import React from "react";
 import Input from "@/components/website/form/input";
 import Select from "@/components/website/form/select";
 import TextArea from "@/components/website/form/text-area";
 import { IProduct } from "@/types/products";
 import { noSpacePattern, numberPattern } from "@/utils/validation-pattern";
-import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const conditionOptions = ["New", "Second Hand/Used"];
@@ -15,9 +15,30 @@ const InventoryAddProduct = () => {
     formState: { errors },
     handleSubmit,
     control,
+    setError,
   } = useForm<IProduct>({ criteriaMode: "all" });
 
   const submitHandler = (data: IProduct) => {
+    const file = data.image[0];
+
+    // Check file image type
+    if (
+      file.type !== "image/jpg" &&
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png"
+    ) {
+      setError(
+        "image",
+        {
+          types: {
+            message: "Only jpg/jpeg/png are valid.",
+          },
+        },
+        { shouldFocus: true }
+      );
+      return;
+    }
+
     console.log(data);
   };
 
@@ -69,11 +90,27 @@ const InventoryAddProduct = () => {
             />
           </div>
           <div className="mb-3">
+            <Input
+              label="Image"
+              name="image"
+              type="file"
+              register={register}
+              errors={errors}
+              validation={{
+                required: "Image is required!",
+              }}
+              className="px-5 py-2"
+            />
+          </div>
+          <div className="mb-3">
             <TextArea
               label="Description"
               name="description"
               errors={errors}
               register={register}
+              validation={{
+                required: "Description is required!",
+              }}
               placeholder="Add product description"
               className="px-5 py-3 h-full "
             />
@@ -145,7 +182,9 @@ const InventoryAddProduct = () => {
             />
           </div>
         </div>
-        <button type="submit">Add Product</button>
+        <button type="submit" className="bg-lightBlue text-light py-3 rounded">
+          Add Product
+        </button>
       </form>
     </div>
   );

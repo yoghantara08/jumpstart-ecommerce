@@ -10,5 +10,5 @@ export interface IProduct {
   addedBy: string;
   condition: string;
   weight: string;
-  image: string;
+  image: any;
 }
