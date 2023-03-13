@@ -12,3 +12,8 @@ export interface IProduct {
   weight: string;
   image: any;
 }
+
+export interface ICategory {
+  name: string;
+  description: string;
+}
