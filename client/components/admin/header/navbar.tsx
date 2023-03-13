@@ -58,7 +58,7 @@ const AdminNavbar: React.FC<Props> = ({ toggle, setToggle, title }) => {
             </div>
             <p className="hidden lg:block font-medium">Alex Sulivan</p>
           </Menu.Button>
-          <Menu.Items className="absolute rounded bg-light shadow mt-3 right-0 lg:w-full p-3 flex flex-col gap-2">
+          <Menu.Items className="absolute z-20 rounded bg-light shadow mt-3 right-0 lg:w-full p-3 flex flex-col gap-2">
             <Menu.Item>
               <div className="flex items-center gap-3">
                 <AiOutlineUser className="w-5 h-5" />
