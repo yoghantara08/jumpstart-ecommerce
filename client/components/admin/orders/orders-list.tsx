@@ -36,14 +36,16 @@ const OrdersList = () => {
             <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
               Alex Sulivan
             </td>
-            <td className="border border-slate-200 px-6 py-3">
+            <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
               24 January 2023
             </td>
-            <td className="border border-slate-200 px-6 py-3 text-green-400">
+            <td className="border border-slate-200 px-6 py-3 text-green-400 whitespace-nowrap">
               COMPLETED
             </td>
-            <td className="border border-slate-200 px-6 py-3">$7,199.76</td>
-            <td className="border border-slate-200 px-6 py-3">
+            <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
+              $7,199.76
+            </td>
+            <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
               <Link
                 href="/admin/orders/orderId"
                 className="px-4 py-2 rounded bg-lightBlue text-white"
@@ -51,7 +53,7 @@ const OrdersList = () => {
                 View Details
               </Link>
             </td>
-            <td className="border border-slate-200 px-6 py-3">
+            <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
               <div className="flex gap-3">
                 <MdEdit className="w-6 h-6 text-green-600" />
                 <MdDelete className="w-6 h-6 text-red-600" />
