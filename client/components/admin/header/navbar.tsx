@@ -46,7 +46,7 @@ const AdminNavbar: React.FC<Props> = ({ controls, title }) => {
         )}
       </div>
       <div>
-        <h2 className="text-lg lg:text-xl font-medium">{title}</h2>
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-medium">{title}</h2>
       </div>
       <Menu>
         <div className="relative">
