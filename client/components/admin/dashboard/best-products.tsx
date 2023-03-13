@@ -2,7 +2,7 @@ import React from "react";
 
 const DashboardBestProducts = () => {
   return (
-    <div className="bg-light mt-5 rounded-lg py-4 px-6 ">
+    <div className="bg-light mt-5 rounded-lg py-4 px-6 shadow-sm">
       <h3 className="font-medium text-lg">Top Selling Products</h3>
       <div className="relative overflow-x-auto mt-2">
         <table className="w-full border-collapse">

@@ -3,6 +3,7 @@ import UserContainer from "@/components/website/layout/container";
 import OrdersFilter from "@/components/website/user/orders-filter";
 import OrdersHistory from "@/components/website/user/orders-history";
 import React, { useState } from "react";
+import { orderFilters } from "@/utils/orders-filter";
 
 const orders = [
   {
@@ -12,13 +13,13 @@ const orders = [
     total: "250,44",
     items: [
       {
-        name: "Sport Shoes Nike",
+        name: "Sport Shoes Nike1",
         amount: 2,
         price: "125,22",
         image: "/shoes1.jpg",
       },
       {
-        name: "Sport Shoes Nike",
+        name: "Sport Shoes Nike2",
         amount: 2,
         price: "125,22",
         image: "/shoes1.jpg",
@@ -32,13 +33,13 @@ const orders = [
     total: "250,44",
     items: [
       {
-        name: "Sport Shoes Nike",
+        name: "Sport Shoes Nike3",
         amount: 2,
         price: "125,22",
         image: "/shoes1.jpg",
       },
       {
-        name: "Sport Shoes Nike",
+        name: "Sport Shoes Nike4",
         amount: 2,
         price: "125,22",
         image: "/shoes1.jpg",
@@ -54,7 +55,11 @@ const UserOrdersPage = () => {
     <MainLayout title="Order History">
       <UserContainer>
         <h2 className="text-xl md:text-2xl font-medium">Order History</h2>
-        <OrdersFilter filter={filterOrder} setFilter={setFilterOrder} />
+        <OrdersFilter
+          filterItems={orderFilters}
+          filter={filterOrder}
+          setFilter={setFilterOrder}
+        />
         {orders.map((order) => (
           <OrdersHistory
             key={order.orderId}
