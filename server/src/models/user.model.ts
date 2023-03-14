@@ -1,6 +1,44 @@
 import mongoose from "mongoose";
-import { EProvider } from "src/types/EProvider";
-import { ERoles } from "src/types/ERoles";
+import { EProvider } from "../types/EProvider";
+import { ERoles } from "../types/ERoles";
+
+const profileSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    default: "",
+  },
+  lastName: {
+    type: String,
+    default: "",
+  },
+  phoneNumber: {
+    type: String,
+    default: "",
+  },
+  country: {
+    type: String,
+    default: "",
+  },
+  city: {
+    type: String,
+    default: "",
+  },
+  address: {
+    type: String,
+    default: "",
+  },
+  postalCode: {
+    type: String,
+    default: "",
+  },
+  birthday: {
+    type: Date,
+    default: "0000-00-00",
+  },
+  image: {
+    type: String,
+  },
+});
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,43 +61,11 @@ const userSchema = new mongoose.Schema(
       enum: Object.values(EProvider),
       default: EProvider.LOCAL,
     },
-    firstName: {
-      type: String,
-      default: "",
-    },
-    lastName: {
-      type: String,
-      default: "",
-    },
-    phoneNumber: {
-      type: String,
-      default: "",
-    },
-    country: {
-      type: String,
-      default: "",
-    },
-    city: {
-      type: String,
-      default: "",
-    },
-    address: {
-      type: String,
-      default: "",
-    },
-    postalCode: {
-      type: String,
-      default: "",
-    },
-    birthday: {
-      type: Date,
-      default: "0000-00-00",
-    },
-    image: {
-      type: String,
-    },
     isFirstLogin: {
       type: Boolean,
+    },
+    profile: {
+      type: profileSchema,
     },
   },
   { timestamps: true }
