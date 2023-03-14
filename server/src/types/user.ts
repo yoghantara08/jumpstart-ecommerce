@@ -2,6 +2,7 @@ import { EProvider } from "./EProvider";
 import { ERoles } from "./ERoles";
 
 export interface IUser {
+  username: string;
   email: string;
   password: string;
   role: ERoles;

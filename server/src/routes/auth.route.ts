@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { registerAccount } from "../controllers/auth.controller";
+import { validateAccount } from "../validations/register-validation";
 
 /**
  * Auth Routes
@@ -8,7 +9,7 @@ import { registerAccount } from "../controllers/auth.controller";
 const authRoute = Router();
 
 // register
-authRoute.post("/register", registerAccount);
+authRoute.post("/register", validateAccount, registerAccount);
 
 // first time login
 authRoute.post("/register-information");

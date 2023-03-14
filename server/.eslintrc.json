@@ -18,8 +18,9 @@
   ],
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "@typescript-eslint/no-unused-vars": "warn",
     "array-callback-return": "off",
+    "prefer-promise-reject-errors": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/quotes": "off",
