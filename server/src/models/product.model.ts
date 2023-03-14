@@ -22,8 +22,8 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isFeatured: {
-      type: Boolean,
+    weight: {
+      type: String,
     },
     condition: {
       type: String,
@@ -39,6 +39,13 @@ const productSchema = new mongoose.Schema(
     addedBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    isFeatured: {
+      type: Boolean,
     },
   },
   { timestamps: true }
