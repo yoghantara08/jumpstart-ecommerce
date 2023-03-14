@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Provider } from "src/types/EProvider";
-import { Roles } from "src/types/ERoles";
+import { EProvider } from "src/types/EProvider";
+import { ERoles } from "src/types/ERoles";
 
 const userSchema = new mongoose.Schema(
   {
@@ -15,11 +15,13 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: Roles.USER,
+      enum: Object.values(ERoles),
+      default: ERoles.USER,
     },
     provider: {
       type: String,
-      default: Provider.LOCAL,
+      enum: Object.values(EProvider),
+      default: EProvider.LOCAL,
     },
     firstName: {
       type: String,
