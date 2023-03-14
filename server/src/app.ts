@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { type Express, type Request, type Response } from "express";
 import cors from "cors";
 import connectDB from "./utils/connect-db";
 import config from "./config/config";
@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
+app.use("/", (req: Request, res: Response) => {
+  res.status(200).json({ status: 200, message: "Server Up!" });
+});
 app.use("/api", routes);
 
 // connect db
