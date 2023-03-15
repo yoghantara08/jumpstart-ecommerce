@@ -33,10 +33,11 @@ const profileSchema = new mongoose.Schema({
   },
   birthday: {
     type: Date,
-    default: "0000-00-00",
+    default: "01-01-2000",
   },
   image: {
     type: String,
+    default: "",
   },
 });
 
@@ -63,6 +64,7 @@ const userSchema = new mongoose.Schema(
     },
     isFirstLogin: {
       type: Boolean,
+      default: true,
     },
     profile: {
       type: profileSchema,
