@@ -38,17 +38,21 @@ authRoute.get(
       },
       (err: any, user: any, info: any) => {
         if (err) {
-          return res.status(401).json({ err: err.message });
+          // Handle error message
+          const message: string = err.message;
+          return res.redirect(
+            `http://localhost:3000/auth/google?error=${message}`
+          );
         }
         if (!user) {
           // Handle user not found error
-          return res.status(401).json({ message: "User not found" });
+          return res.redirect(
+            `http://localhost:3000/auth/google?notFound=true`
+          );
         }
         // Redirect to client with token
-        const token: string = (req.user as { token: string }).token;
-        return res.redirect(
-          `http://localhost:3000/auth/success?token=${token}`
-        );
+        const { token } = user as { token: string };
+        return res.redirect(`http://localhost:3000/auth/google?token=${token}`);
       }
     )(req, res, next);
   }

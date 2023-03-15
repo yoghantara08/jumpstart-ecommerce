@@ -58,7 +58,7 @@ passport.use(
               config.secretKey,
               { expiresIn: "1d" }
             );
-            return done(null, { user, token });
+            return done(null, { token });
           } else {
             // User has a different provider, return an error
             const error = new Error(
@@ -82,7 +82,7 @@ passport.use(
             { expiresIn: "1d" }
           );
 
-          return done(null, { user: newUser, token });
+          return done(null, { token });
         }
       } catch (error) {
         return done(error);
