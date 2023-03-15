@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerAccount } from "../controllers/auth.controller";
+import { registerAccount } from "../controllers/register.controller";
 import { validateAccount } from "../validations/register-validation";
 
 /**
