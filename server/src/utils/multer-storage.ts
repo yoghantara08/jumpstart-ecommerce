@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import { Request } from "express";
 
 // Define the Multer storage configuration
 const storage = multer.diskStorage({
@@ -13,9 +14,9 @@ const storage = multer.diskStorage({
 
 // Define multer file filter, accept only png,jpg,jpeg image type
 const fileFilter = (
-  _req: any,
-  file: { mimetype: string },
-  cb: (arg0: null, arg1: boolean) => void
+  _req: Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
 ) => {
   if (
     file.mimetype === "image/png" ||
@@ -24,7 +25,7 @@ const fileFilter = (
   ) {
     cb(null, true);
   } else {
-    cb(null, false);
+    cb(new Error("Invalid file type"));
   }
 };
 
