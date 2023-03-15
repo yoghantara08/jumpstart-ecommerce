@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { type Express } from "express";
+import path from "path";
 import config from "./config/config";
 import routes from "./routes";
 import connectDB from "./utils/connect-db";
@@ -15,6 +16,9 @@ app.use(express.json());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
+
+// serve static file
+app.use("/images", express.static(path.join(__dirname, "../public")));
 
 // routes
 app.use("/api", routes);
