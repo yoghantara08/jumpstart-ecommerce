@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { loginLocal } from "../controllers/login.controller";
 import { registerAccount } from "../controllers/register.controller";
 import { validateAccount } from "../validations/register-validation";
 
@@ -15,6 +16,6 @@ authRoute.post("/register", validateAccount, registerAccount);
 authRoute.post("/register-information");
 
 // login local
-authRoute.post("/login");
+authRoute.post("/login", loginLocal);
 
 export default authRoute;

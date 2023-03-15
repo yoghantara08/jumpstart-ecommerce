@@ -51,7 +51,7 @@ export const registerAccount = async (req: Request, res: Response) => {
     logger.error(error, "Internal Server Error 500");
     return res
       .status(500)
-      .json({ status: 500, message: "Internal Server Error 500" });
+      .json({ status: 500, message: "Internal Server Error 500", error });
   }
 };
 
