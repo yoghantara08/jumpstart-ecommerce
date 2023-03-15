@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs";
-import User from "../models/user.model";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import { isValidObjectId } from "mongoose";
 import { IProfile } from "src/types/user";
+import User from "../models/user.model";
 import { logger } from "../utils/logger";
 
 // register account
@@ -55,6 +56,42 @@ export const registerAccount = async (req: Request, res: Response) => {
   }
 };
 
-// register information
+// register profile
+export const registerProfile = async (req: Request, res: Response) => {
+  try {
+    // request body
+    const { phoneNumber, country, city, address, postalCode, birthday } =
+      req.body;
 
-// login local
+    // params
+    const { userId } = req.params;
+    if (!isValidObjectId(userId)) {
+      return res.status(400).json({ message: "Invalid ObjectID" });
+    }
+
+    // find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found!" });
+    }
+
+    if (user.profile) {
+      user.profile.phoneNumber = phoneNumber;
+      user.profile.country = country;
+      user.profile.city = city;
+      user.profile.address = address;
+      user.profile.postalCode = postalCode;
+      user.profile.birthday = new Date(birthday);
+    }
+    user.isFirstLogin = false;
+
+    await user.save();
+
+    return res.status(200).json({ message: "Profile successfully updated" });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};

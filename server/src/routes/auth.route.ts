@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { loginLocal } from "../controllers/login.controller";
-import { registerAccount } from "../controllers/register.controller";
+import {
+  registerAccount,
+  registerProfile,
+} from "../controllers/register.controller";
 import { validateAccount } from "../validations/register-validation";
 
 import passport from "passport";
@@ -15,8 +18,8 @@ const authRoute = Router();
 // register
 authRoute.post("/register", validateAccount, registerAccount);
 
-// register information
-authRoute.post("/register-information");
+// update profile first login
+authRoute.put("/register/:userId", registerProfile);
 
 // local login
 authRoute.post("/login", loginLocal);
