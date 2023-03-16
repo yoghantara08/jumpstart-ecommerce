@@ -1,22 +1,27 @@
+import AuthContext from "@/contexts/auth-context";
+import { registerInformationAPI } from "@/lib/auth-api";
 import { dateData, monthData } from "@/utils/date-data";
 import { numberPattern } from "@/utils/validation-pattern";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../form/input";
 import SelectDate from "../form/select-date";
 
-interface IRegisterInformation {
+export interface IRegisterInformation {
   phoneNumber: string;
   country: string;
   city: string;
   address: string;
   postalCode: string;
-  year: string;
+  birthday: string;
 }
 
 const RegisterInformation = () => {
   const [date, setDate] = useState<number>(1);
   const [month, setMonth] = useState<string>("January");
+  const { token } = useContext(AuthContext);
+  const router = useRouter();
 
   const {
     register,
@@ -25,15 +30,21 @@ const RegisterInformation = () => {
   } = useForm<IRegisterInformation>({ criteriaMode: "all" });
 
   const submitHandler = (data: IRegisterInformation) => {
-    let birthDate = "";
-
-    if (!data.year) {
-      birthDate = `${date}-${month}-${"0000"}`;
+    if (!data.birthday) {
+      data.birthday = `${date} ${month}, 2000`;
     } else {
-      birthDate = `${date}-${month}-${data.year}`;
+      data.birthday = `${date} ${month}, ${data.birthday}`;
     }
 
-    console.log(birthDate);
+    registerInformationAPI(token, data)
+      .then((res) => {
+        console.log(res);
+
+        router.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -114,7 +125,7 @@ const RegisterInformation = () => {
             <SelectDate datas={dateData} value={date} setValue={setDate} />
             <SelectDate datas={monthData} value={month} setValue={setMonth} />
             <Input
-              name="year"
+              name="birthday"
               placeholder="Year"
               errors={errors}
               register={register}

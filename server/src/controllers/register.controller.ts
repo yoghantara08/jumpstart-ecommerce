@@ -5,6 +5,7 @@ import { isValidObjectId } from "mongoose";
 import { IProfile } from "src/types/user";
 import User from "../models/user.model";
 import { logger } from "../utils/logger";
+import jwt from "jsonwebtoken";
 
 // register account
 export const registerAccount = async (req: Request, res: Response) => {
@@ -63,14 +64,16 @@ export const registerProfile = async (req: Request, res: Response) => {
     const { phoneNumber, country, city, address, postalCode, birthday } =
       req.body;
 
-    // params
-    const { userId } = req.params;
-    if (!isValidObjectId(userId)) {
+    // token
+    const token = req.body.token;
+    const payload: any = jwt.decode(token);
+
+    if (!isValidObjectId(payload.userId)) {
       return res.status(400).json({ message: "Invalid ObjectID" });
     }
 
     // find user
-    const user = await User.findById(userId);
+    const user = await User.findById(payload.userId);
     if (!user) {
       return res.status(400).json({ message: "User not found!" });
     }

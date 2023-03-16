@@ -1,3 +1,5 @@
+import useUser from "@/hooks/useUser";
+import { IMAGE_URL } from "@/lib/config";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -37,20 +39,28 @@ const sidebarLinks = [
 
 const UserSidebar = () => {
   const { pathname } = useRouter();
+  const { profile } = useUser();
+
+  let src;
+  if (profile) {
+    src = `${IMAGE_URL}${profile.image}`;
+  }
 
   return (
     <div className="w-full hidden md:max-w-[15rem] lg:max-w-xs md:flex md:flex-col rounded bg-white border border-gray-300 py-3 h-fit">
       <div className="px-5 border-b w-full pb-3 flex items-center gap-4">
         <div className="w-14 lg:w-16 h-14 lg:h-16 rounded-full overflow-hidden">
           <Image
-            src="/user-default.png"
-            alt="user"
+            src={src || "/user-default.png"}
+            alt={profile.firstName}
             width={126}
             height={126}
             className="w-full h-full"
           />
         </div>
-        <p className="lg:text-xl mb-3 font-medium">Alex Sulivan</p>
+        <p className="lg:text-xl mb-3 font-medium">
+          {profile.firstName} {profile.lastName}
+        </p>
       </div>
       <ul className="px-5 py-3 pb-10">
         {sidebarLinks.map((link) => (

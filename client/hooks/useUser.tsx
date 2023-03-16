@@ -1,5 +1,5 @@
 import AuthContext from "@/contexts/auth-context";
-import { profileAPI } from "@/lib/auth-api";
+import { profileAPI } from "@/lib/user-api";
 import { IProfile, IUser } from "@/types/user-type";
 import { useContext, useEffect, useState } from "react";
 

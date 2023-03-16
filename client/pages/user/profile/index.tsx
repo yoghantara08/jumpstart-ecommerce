@@ -8,9 +8,18 @@ import LoadingSpinner from "@/components/website/spinner/loading-spinner";
 import useUser from "@/hooks/useUser";
 import Image from "next/image";
 import Link from "next/link";
+import { IMAGE_URL } from "@/lib/config";
 
 const UserProfile = () => {
   const { isLoading, user, profile } = useUser();
+
+  let src;
+  let birthdate;
+  if (profile) {
+    src = `${IMAGE_URL}${profile.image}`;
+    const date = new Date(profile.birthday);
+    birthdate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+  }
 
   if (user && user.isFirstLogin) {
     return (
@@ -39,8 +48,8 @@ const UserProfile = () => {
           <div className="w-full flex items-center gap-4">
             <div className="w-16 lg:w-20 h-16 lg:h-20 rounded-full overflow-hidden">
               <Image
-                src={profile.image}
-                alt="user"
+                src={src || "/user-default.png"}
+                alt={profile.firstName}
                 width={126}
                 height={126}
                 className="w-full h-full"
@@ -56,7 +65,7 @@ const UserProfile = () => {
               country={profile.country}
               city={profile.city}
               address={profile.address}
-              birthdate=""
+              birthdate={birthdate}
               postalCode={profile.phoneNumber}
             />
             <ProfileContact

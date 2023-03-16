@@ -8,6 +8,7 @@ import { validateAccount } from "../validations/register-validation";
 
 import passport from "passport";
 import "../controllers/google-login.controller";
+import isAuthenticated from "../middleware/isAuthenticated";
 
 /**
  * Auth Routes
@@ -19,7 +20,7 @@ const authRoute = Router();
 authRoute.post("/register", validateAccount, registerAccount);
 
 // update profile first login
-authRoute.put("/register/:userId", registerProfile);
+authRoute.put("/register-information", isAuthenticated, registerProfile);
 
 // local login
 authRoute.post("/login", loginLocal);

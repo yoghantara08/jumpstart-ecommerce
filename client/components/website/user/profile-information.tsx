@@ -6,7 +6,7 @@ interface Props {
   city: string;
   address: string;
   postalCode: string | number;
-  birthdate: string;
+  birthdate: string | undefined;
 }
 
 const ProfileInformation: React.FC<Props> = ({
