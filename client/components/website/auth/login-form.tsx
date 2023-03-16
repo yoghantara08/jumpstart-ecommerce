@@ -16,7 +16,7 @@ export interface ILoginForm {
 
 const LoginForm = () => {
   const router = useRouter();
-  const { login } = useContext(AuthContext);
+  const { login, firstLogin } = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -34,9 +34,25 @@ const LoginForm = () => {
 
     try {
       const response = await loginAPI(data);
-      const token = response.data.token;
+      const { token, role, isFirstLogin } = response.data;
+
+      // set login state
       login(token);
-      router.replace("/user/profile");
+
+      console.log(response);
+
+      // set isFirstLogin state
+      firstLogin(isFirstLogin);
+
+      // redirect user
+      if (role === "USER") {
+        router.replace("/user/profile");
+      }
+
+      if (role === "ADMIN") {
+        router.replace("/admin");
+      }
+
       setIsError(false);
       reset();
     } catch (error: any) {

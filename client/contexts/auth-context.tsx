@@ -4,20 +4,25 @@ import React, { useEffect, useReducer } from "react";
 type AuthContextType = {
   token: string | null;
   isLoggedIn: boolean;
+  isFirstLogin: boolean;
+  logout: () => void;
   // eslint-disable-next-line no-unused-vars
   login: (token: string) => void;
-  logout: () => void;
+  // eslint-disable-next-line no-unused-vars
+  firstLogin: (condition: boolean) => void;
 };
 
 // AUTH REDUCER ACTION TYPE
 type AuthActionType =
   | { type: "LOGIN"; payload: { token: string } }
-  | { type: "LOGOUT" };
+  | { type: "LOGOUT" }
+  | { type: "FIRST_LOGIN"; payload: { isFirstLogin: boolean } };
 
 // AUTH REDUCER STATE TYPE
 type AuthStateType = {
   token: string | null;
   isLoggedIn: boolean;
+  isFirstLogin: boolean;
 };
 
 // AUTH REDUCER
@@ -38,6 +43,11 @@ const authReducer = (
         token: null,
         isLoggedIn: false,
       };
+    case "FIRST_LOGIN":
+      return {
+        ...state,
+        isFirstLogin: action.payload.isFirstLogin,
+      };
     default:
       throw new Error("Invalid action");
   }
@@ -47,8 +57,10 @@ const authReducer = (
 const AuthContext = React.createContext<AuthContextType>({
   token: null,
   isLoggedIn: false,
+  isFirstLogin: false,
   login: () => {},
   logout: () => {},
+  firstLogin: () => {},
 });
 
 // Context Provider
@@ -58,6 +70,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const initialAuthState: AuthStateType = {
     token: null,
     isLoggedIn: false,
+    isFirstLogin: false,
   };
   const [authState, dispatch] = useReducer(authReducer, initialAuthState);
 
@@ -84,11 +97,17 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatch({ type: "LOGOUT" });
   };
 
+  const firstLoginHandler = (condition: boolean) => {
+    dispatch({ type: "FIRST_LOGIN", payload: { isFirstLogin: condition } });
+  };
+
   const contextValue: AuthContextType = {
     token: authState.token,
     isLoggedIn: authState.isLoggedIn,
+    isFirstLogin: authState.isFirstLogin,
     login: loginHandler,
     logout: logoutHandler,
+    firstLogin: firstLoginHandler,
   };
 
   return (

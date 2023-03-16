@@ -1,13 +1,27 @@
-import MainLayout from "@/components/website/layout/main-layout";
+import RegisterInformation from "@/components/website/auth/register-information";
+import AuthenticatedPage from "@/components/website/hoc/authenticated";
 import UserContainer from "@/components/website/layout/container";
+import MainLayout from "@/components/website/layout/main-layout";
 import ProfileContact from "@/components/website/user/profile-contact";
 import ProfileInformation from "@/components/website/user/profile-information";
+import AuthContext from "@/contexts/auth-context";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import AuthenticatedPage from "@/components/website/hoc/authenticated";
+import { useContext } from "react";
 
 const UserProfile = () => {
+  const { isFirstLogin } = useContext(AuthContext);
+
+  if (isFirstLogin) {
+    return (
+      <AuthenticatedPage>
+        <MainLayout title="User Information">
+          <RegisterInformation />
+        </MainLayout>
+      </AuthenticatedPage>
+    );
+  }
+
   return (
     <AuthenticatedPage>
       <MainLayout title="Profile">

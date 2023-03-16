@@ -1,9 +1,13 @@
+import AuthContext from "@/contexts/auth-context";
 import Link from "next/link";
+import { useContext } from "react";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import SearchBar from "./search-bar";
-// import { MdOutlineShoppingCart, MdMailOutline } from "react-icons/md";
-// import UserMenu from "./user-menu";
+import UserMenu from "./user-menu";
 
 const DesktopNavigation = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <div className="hidden lg:flex gap-3 w-full">
       <ul className="flex items-center gap-4 font-medium">
@@ -21,26 +25,31 @@ const DesktopNavigation = () => {
       </ul>
       <SearchBar />
       <ul className="flex items-center gap-3">
-        {/* <li>
-          <MdOutlineShoppingCart className="text-2xl" />
-        </li>
-        <li>
-          <MdMailOutline className="text-xl" />
-        </li>
-        <li>
-          <UserMenu />
-        </li> */}
+        {isLoggedIn && (
+          <>
+            <li>
+              <MdOutlineShoppingCart className="text-2xl" />
+            </li>
+            <li>
+              <UserMenu />
+            </li>
+          </>
+        )}
 
-        <li>
-          <Link href="/auth/login">
-            <button className="button-primary-outlined py-2">Login</button>
-          </Link>
-        </li>
-        <li>
-          <Link href="/auth/register">
-            <button className="button-primary py-2">Register</button>
-          </Link>
-        </li>
+        {!isLoggedIn && (
+          <>
+            <li>
+              <Link href="/auth/login">
+                <button className="button-primary-outlined py-2">Login</button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/auth/register">
+                <button className="button-primary py-2">Register</button>
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

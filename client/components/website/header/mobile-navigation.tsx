@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import { navigationVariants } from "@/animation/navigation-motion";
@@ -6,11 +6,14 @@ import SearchBar from "./search-bar";
 import { FiMenu, FiX } from "react-icons/fi";
 import useWindowSize from "@/hooks/useWindowSize";
 import Link from "next/link";
+import AuthContext from "@/contexts/auth-context";
+import UserMenu from "./user-menu";
 
 const MobileNavigation = () => {
   const { pathname } = useRouter();
   const { mobile } = useWindowSize();
   const [menu, setMenu] = useState<boolean>(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     if (!mobile) {
@@ -58,20 +61,25 @@ const MobileNavigation = () => {
             <li className="flex justify-center">
               <Link href="/products">Products</Link>
             </li>
-            <li>
-              <Link href="/auth/login">
-                <button className="button-primary-outlined py-2 w-full max-w-[200px]">
-                  Login
-                </button>
-              </Link>
-            </li>
-            <li>
-              <Link href="/auth/register">
-                <button className="button-primary py-2 w-full max-w-[200px]">
-                  Register
-                </button>
-              </Link>
-            </li>
+            {isLoggedIn && <UserMenu />}
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <Link href="/auth/login">
+                    <button className="button-primary-outlined py-2 w-full max-w-[200px]">
+                      Login
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/auth/register">
+                    <button className="button-primary py-2 w-full max-w-[200px]">
+                      Register
+                    </button>
+                  </Link>
+                </li>
+              </>
+            )}
           </motion.ul>
         )}
       </AnimatePresence>
