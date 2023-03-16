@@ -4,23 +4,36 @@ import UserContainer from "@/components/website/layout/container";
 import MainLayout from "@/components/website/layout/main-layout";
 import ProfileContact from "@/components/website/user/profile-contact";
 import ProfileInformation from "@/components/website/user/profile-information";
-import AuthContext from "@/contexts/auth-context";
+
+import { useEffect, useContext } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import AuthContext from "@/contexts/auth-context";
+import { profileAPI } from "@/lib/auth-api";
 
 const UserProfile = () => {
-  const { isFirstLogin } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-  if (isFirstLogin) {
-    return (
-      <AuthenticatedPage>
-        <MainLayout title="User Information">
-          <RegisterInformation />
-        </MainLayout>
-      </AuthenticatedPage>
-    );
-  }
+  useEffect(() => {
+    profileAPI(token)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token]);
+
+  // if (user.isFirstLogin) {
+  //   return (
+  //     <AuthenticatedPage>
+  //       <MainLayout title="User Information">
+  //         <RegisterInformation />
+  //       </MainLayout>
+  //     </AuthenticatedPage>
+  //   );
+  // }
 
   return (
     <AuthenticatedPage>
