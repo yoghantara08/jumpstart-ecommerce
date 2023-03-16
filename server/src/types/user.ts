@@ -22,3 +22,9 @@ export interface IProfile {
   birthday: Date;
   image: string;
 }
+
+export interface IPayloadToken {
+  userId: string;
+  email: string;
+  role: string;
+}

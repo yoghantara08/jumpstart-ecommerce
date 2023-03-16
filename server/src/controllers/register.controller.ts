@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { isValidObjectId } from "mongoose";
 import { IProfile } from "src/types/user";
-import User from "../../models/user.model";
-import { logger } from "../../utils/logger";
+import User from "../models/user.model";
+import { logger } from "../utils/logger";
 
 // register account
 export const registerAccount = async (req: Request, res: Response) => {
