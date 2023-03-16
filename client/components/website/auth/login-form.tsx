@@ -13,13 +13,9 @@ interface ILoginForm {
 const LoginForm = () => {
   const {
     register,
-    formState: { errors, isLoading },
+    formState: { errors },
     handleSubmit,
   } = useForm<ILoginForm>({ criteriaMode: "all" });
-
-  if (isLoading) {
-    console.log("Loading...");
-  }
 
   const submitHandler = (data: ILoginForm) => {
     console.log(data);
