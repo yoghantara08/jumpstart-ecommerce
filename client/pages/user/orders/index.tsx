@@ -4,6 +4,7 @@ import OrdersFilter from "@/components/website/user/orders-filter";
 import OrdersHistory from "@/components/website/user/orders-history";
 import React, { useState } from "react";
 import { orderFilters } from "@/utils/orders-filter";
+import AuthenticatedPage from "@/components/website/hoc/authenticated";
 
 const orders = [
   {
@@ -52,26 +53,28 @@ const UserOrdersPage = () => {
   const [filterOrder, setFilterOrder] = useState<string>("ALL");
 
   return (
-    <MainLayout title="Order History">
-      <UserContainer>
-        <h2 className="text-xl md:text-2xl font-medium">Order History</h2>
-        <OrdersFilter
-          filterItems={orderFilters}
-          filter={filterOrder}
-          setFilter={setFilterOrder}
-        />
-        {orders.map((order) => (
-          <OrdersHistory
-            key={order.orderId}
-            orderId={order.orderId}
-            date={order.date}
-            orderStatus={order.orderStatus}
-            total={order.total}
-            items={order.items}
+    <AuthenticatedPage>
+      <MainLayout title="Order History">
+        <UserContainer>
+          <h2 className="text-xl md:text-2xl font-medium">Order History</h2>
+          <OrdersFilter
+            filterItems={orderFilters}
+            filter={filterOrder}
+            setFilter={setFilterOrder}
           />
-        ))}
-      </UserContainer>
-    </MainLayout>
+          {orders.map((order) => (
+            <OrdersHistory
+              key={order.orderId}
+              orderId={order.orderId}
+              date={order.date}
+              orderStatus={order.orderStatus}
+              total={order.total}
+              items={order.items}
+            />
+          ))}
+        </UserContainer>
+      </MainLayout>
+    </AuthenticatedPage>
   );
 };
 

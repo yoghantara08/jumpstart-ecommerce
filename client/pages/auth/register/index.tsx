@@ -1,11 +1,14 @@
 import RegisterAccount from "@/components/website/auth/register-account";
+import UnauthenticatedPage from "@/components/website/hoc/unauthenticated";
 import MainLayout from "@/components/website/layout/main-layout";
 
 const RegisterPage = () => {
   return (
-    <MainLayout title="Register">
-      <RegisterAccount />
-    </MainLayout>
+    <UnauthenticatedPage>
+      <MainLayout title="Register">
+        <RegisterAccount />
+      </MainLayout>
+    </UnauthenticatedPage>
   );
 };
 
