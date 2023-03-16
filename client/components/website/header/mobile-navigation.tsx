@@ -59,14 +59,14 @@ const MobileNavigation = () => {
               <Link href="/products">Products</Link>
             </li>
             <li>
-              <Link href="/login">
+              <Link href="/auth/login">
                 <button className="button-primary-outlined py-2 w-full max-w-[200px]">
                   Login
                 </button>
               </Link>
             </li>
             <li>
-              <Link href="/register">
+              <Link href="/auth/register">
                 <button className="button-primary py-2 w-full max-w-[200px]">
                   Register
                 </button>

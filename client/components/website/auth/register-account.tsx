@@ -1,29 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { emailPattern } from "@/utils/validation-pattern";
 import Input from "../form/input";
 import GoogleButton from "./google-button";
 import Link from "next/link";
-
-interface IRegisterAccount {
-  username: string;
-  email: string;
-  password: string;
-}
+import { IRegisterAccount } from "@/types/user-type";
+import { registerAPI } from "@/lib/auth-api";
+import ErrorMessage from "./message-error";
+import SuccessMessage from "./message-succes";
 
 const RegisterAccount = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState<"ERROR" | "SUCCESS" | "">("");
+  const [errorMessage, setErrorMessage] = useState<any>();
+  const [successMessage, setSuccessMessage] = useState<any>();
+
   const {
     register,
-    formState: { errors, isLoading },
+    formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<IRegisterAccount>({ criteriaMode: "all" });
 
-  if (isLoading) {
-    console.log("Loading...");
-  }
-
-  const submitHandler = (data: IRegisterAccount) => {
-    console.log(data);
+  const submitHandler = async (data: IRegisterAccount) => {
+    setIsLoading(true);
+    try {
+      const response = await registerAPI(data);
+      setSuccessMessage(response.data.message);
+      setIsError("SUCCESS");
+      reset();
+    } catch (error: any) {
+      setIsError("ERROR");
+      setErrorMessage(error.response.data.errors[0].msg);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -35,6 +45,12 @@ const RegisterAccount = () => {
         <h2 className="text-2xl sm:text-3xl font-bold mb-2">
           Create an account
         </h2>
+        {isError === "ERROR" && (
+          <ErrorMessage message={errorMessage} setClose={setIsError} />
+        )}
+        {isError === "SUCCESS" && (
+          <SuccessMessage message={successMessage} setClose={setIsError} />
+        )}
         <div className="mt-3">
           <Input
             label="Username"
@@ -83,16 +99,17 @@ const RegisterAccount = () => {
 
         <button
           type="submit"
-          className="button-primary w-full mt-5 mb-5 py-2 sm:py-3"
+          disabled={isLoading}
+          className="button-primary w-full mt-5 mb-5 py-2 sm:py-3 disabled:cursor-not-allowed"
         >
-          Create account
+          {isLoading ? "Submitting..." : "Create account"}
         </button>
 
-        <GoogleButton />
+        <GoogleButton disabled={isLoading} />
 
         <p className="text-center mt-5 font-medium">
           <span className="text-gray-500">Already have an account? </span>
-          <Link href="/login" className="text-blue-500">
+          <Link href="/auth/login" className="text-blue-500">
             Login
           </Link>
         </p>

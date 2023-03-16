@@ -1,6 +1,6 @@
 import Input from "@/components/website/form/input";
 import TextArea from "@/components/website/form/text-area";
-import { ICategory } from "@/types/products";
+import { ICategory } from "@/types/products-type";
 import React from "react";
 import { useForm } from "react-hook-form";
 

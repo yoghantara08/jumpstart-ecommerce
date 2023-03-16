@@ -2,7 +2,7 @@ import React from "react";
 import Input from "@/components/website/form/input";
 import Select from "@/components/website/form/select";
 import TextArea from "@/components/website/form/text-area";
-import { IProduct } from "@/types/products";
+import { IProduct } from "@/types/products-type";
 import { noSpacePattern, numberPattern } from "@/utils/validation-pattern";
 import { Controller, useForm } from "react-hook-form";
 
