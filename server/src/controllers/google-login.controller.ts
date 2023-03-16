@@ -53,7 +53,6 @@ passport.use(
                 userId: user._id.toString(),
                 email: user.email,
                 role: user.role,
-                isFirstLogin: user.isFirstLogin,
               },
               config.secretKey,
               { expiresIn: "1d" }
