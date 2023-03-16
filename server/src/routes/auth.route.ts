@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { loginLocal } from "../controllers/login.controller";
+import { loginLocal } from "../controllers/auth/login.controller";
 import {
   registerAccount,
   registerProfile,
-} from "../controllers/register.controller";
+} from "../controllers/auth/register.controller";
 import { validateAccount } from "../validations/register-validation";
 
 import passport from "passport";
-import "../controllers/google-login.controller";
+import "../controllers/auth/google-login.controller";
 
 /**
  * Auth Routes

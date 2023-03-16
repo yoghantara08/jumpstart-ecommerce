@@ -1,10 +1,10 @@
 import { Request } from "express";
-import { EProvider } from "../types/EProvider";
+import { EProvider } from "../../types/EProvider";
 import passport, { DoneCallback, Profile } from "passport";
 import jwt from "jsonwebtoken";
 import oauth2 from "passport-google-oauth2";
-import config from "../config/config";
-import User from "../models/user.model";
+import config from "../../config/config";
+import User from "../../models/user.model";
 
 passport.use(
   new oauth2.Strategy(

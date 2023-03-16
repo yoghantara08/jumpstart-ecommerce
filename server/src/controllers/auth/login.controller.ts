@@ -1,10 +1,10 @@
-import User from "../models/user.model";
+import User from "../../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
-import config from "../config/config";
-import { logger } from "../utils/logger";
-import { EProvider } from "../types/EProvider";
+import config from "../../config/config";
+import { logger } from "../../utils/logger";
+import { EProvider } from "../../types/EProvider";
 
 // Login local
 export const loginLocal = async (req: Request, res: Response) => {
