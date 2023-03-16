@@ -12,7 +12,7 @@ const ErrorMessage: React.FC<Props> = ({ message, setClose }) => {
       <span className="w-full">{message}</span>
       <AiOutlineCloseCircle
         className="text-2xl cursor-pointer"
-        onClick={() => setClose("")}
+        onClick={() => setClose(false)}
       />
     </div>
   );

@@ -11,7 +11,7 @@ import SuccessMessage from "./message-succes";
 
 const RegisterAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState<"ERROR" | "SUCCESS" | "">("");
+  const [isError, setIsError] = useState<any>();
   const [errorMessage, setErrorMessage] = useState<any>();
   const [successMessage, setSuccessMessage] = useState<any>();
 
