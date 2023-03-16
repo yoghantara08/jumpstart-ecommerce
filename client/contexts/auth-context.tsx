@@ -61,12 +61,18 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   const [authState, dispatch] = useReducer(authReducer, initialAuthState);
 
+  let storedToken: string | null = null;
+  if (typeof window !== "undefined") {
+    storedToken = localStorage.getItem("token");
+  }
+
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       dispatch({ type: "LOGIN", payload: { token: storedToken } });
+    } else {
+      dispatch({ type: "LOGOUT" });
     }
-  }, []);
+  }, [storedToken]);
 
   const loginHandler = (token: string) => {
     localStorage.setItem("token", token);
