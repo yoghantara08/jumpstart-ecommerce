@@ -1,5 +1,5 @@
 import { ILoginForm } from "@/components/website/auth/login-form";
-import { IRegisterAccount, IUser } from "@/types/user-type";
+import { IRegisterAccount } from "@/types/user-type";
 import { API } from "./config";
 
 export const registerAPI = async (data: IRegisterAccount) => {
@@ -11,7 +11,7 @@ export const loginAPI = async (data: ILoginForm) => {
 };
 
 export const profileAPI = async (token: string | null) => {
-  return await API.get<IUser>("/user/profile", {
+  return await API.get("/user/profile", {
     headers: { Authorization: `Bearer ${token}` },
   });
 };

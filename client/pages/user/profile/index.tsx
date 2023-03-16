@@ -4,36 +4,33 @@ import UserContainer from "@/components/website/layout/container";
 import MainLayout from "@/components/website/layout/main-layout";
 import ProfileContact from "@/components/website/user/profile-contact";
 import ProfileInformation from "@/components/website/user/profile-information";
-
-import { useEffect, useContext } from "react";
-
+import LoadingSpinner from "@/components/website/spinner/loading-spinner";
+import useUser from "@/hooks/useUser";
 import Image from "next/image";
 import Link from "next/link";
-import AuthContext from "@/contexts/auth-context";
-import { profileAPI } from "@/lib/auth-api";
 
 const UserProfile = () => {
-  const { token } = useContext(AuthContext);
+  const { isLoading, user, profile } = useUser();
 
-  useEffect(() => {
-    profileAPI(token)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [token]);
+  if (user && user.isFirstLogin) {
+    return (
+      <AuthenticatedPage>
+        <MainLayout title="User Information">
+          <RegisterInformation />
+        </MainLayout>
+      </AuthenticatedPage>
+    );
+  }
 
-  // if (user.isFirstLogin) {
-  //   return (
-  //     <AuthenticatedPage>
-  //       <MainLayout title="User Information">
-  //         <RegisterInformation />
-  //       </MainLayout>
-  //     </AuthenticatedPage>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <AuthenticatedPage>
+        <MainLayout>
+          <LoadingSpinner />
+        </MainLayout>
+      </AuthenticatedPage>
+    );
+  }
 
   return (
     <AuthenticatedPage>
@@ -42,27 +39,29 @@ const UserProfile = () => {
           <div className="w-full flex items-center gap-4">
             <div className="w-16 lg:w-20 h-16 lg:h-20 rounded-full overflow-hidden">
               <Image
-                src="/user-default.png"
+                src={profile.image}
                 alt="user"
                 width={126}
                 height={126}
                 className="w-full h-full"
               />
             </div>
-            <p className="text-xl lg:text-2xl mb-3 font-medium">Alex Sulivan</p>
+            <p className="text-xl lg:text-2xl mb-3 font-medium">
+              {profile.firstName}
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 mt-5 gap-2">
             <ProfileInformation
-              name="Alex Sulivan"
-              country="Indonesia"
-              city="Bali"
-              address="Bali, Indonesia"
+              name={profile.firstName}
+              country={profile.country}
+              city={profile.city}
+              address={profile.address}
               birthdate=""
-              postalCode=""
+              postalCode={profile.phoneNumber}
             />
             <ProfileContact
-              email="alexsulivan@gmail.com"
-              phoneNumber="0812315415"
+              email={user.email}
+              phoneNumber={profile.phoneNumber}
             />
           </div>
           <Link

@@ -10,12 +10,11 @@ export interface IUser {
   role: string;
   provider: string;
   isFirstLogin: boolean;
-  profile: IProfile;
   createdAt: string;
   updatedAt: string;
 }
 
-interface IProfile {
+export interface IProfile {
   firstName: string;
   lastName: string;
   phoneNumber: string;
@@ -25,5 +24,4 @@ interface IProfile {
   postalCode: string;
   birthday: string;
   image: string;
-  _id: string;
 }
