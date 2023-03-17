@@ -70,3 +70,40 @@ export const addCartItem = async (req: Request, res: Response) => {
       .json({ status: 500, message: "Internal Server Error 500", error });
   }
 };
+
+// UPDATE ITEM QUANTITY IN CART
+export const updateCartItem = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { quantity, productId } = req.body;
+
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // find the product on the cart items
+    const item = cart.items.find(
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      (cartItem) => cartItem.product.toString() === productId
+    );
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    item.quantity = Number(quantity);
+
+    await cart.save();
+
+    return res
+      .status(200)
+      .json({ message: "Update item quantity in cart successfully", cart });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};
