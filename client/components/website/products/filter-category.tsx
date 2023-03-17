@@ -29,7 +29,7 @@ const FilterCategory = () => {
                   pathname: router.pathname,
                   query: {
                     ...router.query,
-                    category: data.category.toLowerCase(),
+                    category: data.category,
                   },
                 }}
                 className="block px-5 py-1 hover:bg-gray-200"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import FilterCategory from "./filter-category";
 import FilterPrice from "./filter-price";
 
@@ -10,6 +11,12 @@ const ProductFilter = () => {
       <div className="p-5">
         <FilterCategory />
         <FilterPrice />
+        <Link
+          href="/products"
+          className="flex justify-center p-3 rounded bg-yellow-500  font-medium mt-3 hover:opacity-90"
+        >
+          Clear Filter
+        </Link>
       </div>
     </div>
   );

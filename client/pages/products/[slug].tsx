@@ -41,8 +41,6 @@ interface Props {
 }
 
 const ProductDetailsPage: React.FC<Props> = ({ product }) => {
-  console.log(product);
-
   return (
     <MainLayout title={product.name}>
       <div className="flex justify-center py-6 sm:py-8 px-4">
