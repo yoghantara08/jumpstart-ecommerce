@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Input from "@/components/website/form/input";
 import Select from "@/components/website/form/select";
 import TextArea from "@/components/website/form/text-area";
 import { IProduct } from "@/types/products-type";
 import { noSpacePattern, numberPattern } from "@/utils/validation-pattern";
 import { Controller, useForm } from "react-hook-form";
+import { addProductAPI, getCategoriesAPI } from "@/lib/products-api";
+import AuthContext from "@/contexts/auth-context";
+import { useRouter } from "next/router";
 
 const conditionOptions = ["New", "Second Hand/Used"];
-const categoryOptions = ["Electronics", "Accessories", "Sports", "T-shirt"];
 
 const InventoryAddProduct = () => {
+  const [categoryOptions, setcategoryOptions] = useState<string[]>([]);
+  const { token } = useContext(AuthContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    getCategoriesAPI().then((res) => {
+      const categories: string[] = [];
+      res.data.map((category: any) => {
+        categories.push(category.name);
+      });
+      setcategoryOptions(categories);
+    });
+  }, [token]);
+
   const {
     register,
     formState: { errors },
@@ -20,6 +36,14 @@ const InventoryAddProduct = () => {
 
   const submitHandler = (data: IProduct) => {
     const file = data.image[0];
+
+    const formData = new FormData();
+
+    Object.entries(data).map(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    formData.set("image", data.image[0]);
 
     // Check file image type
     if (
@@ -39,7 +63,14 @@ const InventoryAddProduct = () => {
       return;
     }
 
-    console.log(data);
+    addProductAPI(token, formData)
+      .then((res) => {
+        console.log(res);
+        router.push("/admin/inventory");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

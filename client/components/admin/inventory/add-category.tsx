@@ -1,12 +1,15 @@
 import Input from "@/components/website/form/input";
 import TextArea from "@/components/website/form/text-area";
-import { addCategoryAPI } from "@/lib/admin-api";
+import AuthContext from "@/contexts/auth-context";
+import { addCategoryAPI } from "@/lib/products-api";
 import { ICategory } from "@/types/products-type";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const InventoryAddCategory = () => {
   const router = useRouter();
+  const { token } = useContext(AuthContext);
 
   const {
     register,
@@ -16,7 +19,7 @@ const InventoryAddCategory = () => {
   } = useForm<ICategory>({ criteriaMode: "all" });
 
   const submitHandler = (data: ICategory) => {
-    addCategoryAPI(data)
+    addCategoryAPI(token, data)
       .then((res) => {
         console.log(res);
         router.push("/admin/inventory");
