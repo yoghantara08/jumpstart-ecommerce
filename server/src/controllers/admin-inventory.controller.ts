@@ -57,7 +57,7 @@ export const addProduct = async (req: Request, res: Response) => {
       weight,
     } = req.body;
 
-    const findCategory: any = Category.findOne({ name: category });
+    const findCategory: any = await Category.findOne({ name: category });
 
     if (!findCategory) {
       return res.status(400).json({ message: "Category not found!" });
@@ -90,3 +90,47 @@ export const addProduct = async (req: Request, res: Response) => {
 };
 
 // EDIT PRODUCT
+export const editProduct = async (req: Request, res: Response) => {
+  const file = req.file?.filename;
+  // check validation errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    clearFileUpload(file);
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const productSlug = req.params.slug;
+    const { name, price, stock, description, weight, isFeatured } = req.body;
+
+    const product = await Product.findOne({ slug: productSlug });
+
+    if (!product) {
+      return res.status(400).json({ message: "Product not found!" });
+    }
+
+    product.name = name;
+    product.price = price;
+    product.stock = stock;
+    product.description = description;
+    product.weight = weight;
+    product.isFeatured = isFeatured;
+
+    if (file) {
+      const deleteFile = product.image.split("/").pop();
+      clearFileUpload(deleteFile);
+      product.image = `images/${file}`;
+    }
+
+    const editedProduct = await product.save();
+
+    return res
+      .status(201)
+      .json({ message: "Product edited!", product: editedProduct });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};

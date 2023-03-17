@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addCategory,
   addProduct,
+  editProduct,
 } from "../controllers/admin-inventory.controller";
 import { upload } from "../utils/multer-storage";
 import {
@@ -24,6 +25,14 @@ adminRoute.post(
   upload.single("image"),
   productValidation,
   addProduct
+);
+
+// edit product
+adminRoute.post(
+  "/edit-product/:slug",
+  upload.single("image"),
+  productValidation,
+  editProduct
 );
 
 export default adminRoute;

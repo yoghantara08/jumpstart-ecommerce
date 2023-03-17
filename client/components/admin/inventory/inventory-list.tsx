@@ -28,7 +28,7 @@ const InventoryList: React.FC<Props> = ({ products }) => {
               Category
             </th>
             <th className="border border-slate-200 px-6 py-2 whitespace-nowrap">
-              Quantity
+              Stock
             </th>
             <th className="border border-slate-200 px-6 py-2 whitespace-nowrap">
               Price

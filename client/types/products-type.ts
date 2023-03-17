@@ -8,6 +8,7 @@ export interface IProduct {
   condition: string;
   weight: string;
   image: any;
+  isFeatured?: boolean;
 }
 
 export interface ICategory {
@@ -28,4 +29,14 @@ export interface IProducts {
   image: string;
   createdAt: string;
   updatedAt: string;
+  isFeatured: boolean;
+}
+
+export interface IEditProduct {
+  name: string;
+  price: number;
+  stock: number;
+  description: string;
+  weight: string;
+  image?: any;
 }

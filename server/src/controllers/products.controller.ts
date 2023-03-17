@@ -30,3 +30,23 @@ export const getProducts = async (req: Request, res: Response) => {
       .json({ status: 500, message: "Internal Server Error 500", error });
   }
 };
+
+// GET PRODUCT DETAILS
+export const getProductDetails = async (req: Request, res: Response) => {
+  const productSlug = req.params.slug;
+
+  try {
+    const product = await Product.findOne({ slug: productSlug });
+
+    if (!product) {
+      return res.status(400).json({ message: "Product not found!" });
+    }
+
+    return res.status(200).json(product);
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};
