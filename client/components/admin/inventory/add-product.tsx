@@ -8,10 +8,13 @@ import { Controller, useForm } from "react-hook-form";
 import { addProductAPI, getCategoriesAPI } from "@/lib/products-api";
 import AuthContext from "@/contexts/auth-context";
 import { useRouter } from "next/router";
+import ErrorMessage from "@/components/website/auth/message-error";
 
 const conditionOptions = ["New", "Second Hand/Used"];
 
 const InventoryAddProduct = () => {
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [categoryOptions, setcategoryOptions] = useState<string[]>([]);
   const { token } = useContext(AuthContext);
   const router = useRouter();
@@ -69,12 +72,18 @@ const InventoryAddProduct = () => {
         router.push("/admin/inventory");
       })
       .catch((err) => {
-        console.log(err);
+        setErrorMessage(err.response.data.errors[0].msg);
+        setIsError(true);
       });
   };
 
   return (
     <div className="bg-light rounded-lg shadow px-5 py-4">
+      {isError && (
+        <div className="mb-3">
+          <ErrorMessage setClose={setIsError} message={errorMessage} />
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(submitHandler)}
         className="grid md:grid-cols-2 md:gap-5"

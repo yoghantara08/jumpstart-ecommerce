@@ -7,12 +7,16 @@ export const addCategoryAPI = async (token: string | null, data: ICategory) => {
   });
 };
 
-export const getCategoriesAPI = async () => {
-  return await API.get("/admin/categories");
-};
-
 export const addProductAPI = async (token: string | null, data: FormData) => {
   return await API.post("/admin/add-product", data, {
     headers: { Authorization: `Bearer ${token}` },
   });
+};
+
+export const getCategoriesAPI = async () => {
+  return await API.get("/products/categories");
+};
+
+export const getProductsAPI = async () => {
+  return await API.get("/products");
 };

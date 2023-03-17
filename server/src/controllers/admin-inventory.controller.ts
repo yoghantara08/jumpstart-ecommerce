@@ -3,7 +3,9 @@ import { validationResult } from "express-validator";
 import Category from "../models/category.model";
 import Product from "../models/product.model";
 import { logger } from "../utils/logger";
+import clearFileUpload from "../utils/clear-file-upload";
 
+// ADD CATEGORY
 export const addCategory = async (req: Request, res: Response) => {
   // check validation errors
   const errors = validationResult(req);
@@ -33,20 +35,16 @@ export const addCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategories = async (req: Request, res: Response) => {
-  try {
-    const categories = await Category.find();
-
-    return res.status(200).json(categories);
-  } catch (error) {
-    logger.error(error, "Internal Server Error 500");
-    return res
-      .status(500)
-      .json({ status: 500, message: "Internal Server Error 500", error });
-  }
-};
-
+// ADD PRODUCT
 export const addProduct = async (req: Request, res: Response) => {
+  const file = req.file?.filename;
+  // check validation errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    clearFileUpload(file);
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const {
       name,
@@ -58,8 +56,6 @@ export const addProduct = async (req: Request, res: Response) => {
       condition,
       weight,
     } = req.body;
-
-    const file = req.file?.filename;
 
     const findCategory: any = Category.findOne({ name: category });
 
@@ -73,7 +69,6 @@ export const addProduct = async (req: Request, res: Response) => {
       price,
       stock,
       category,
-      categoryId: findCategory._id,
       description,
       condition,
       weight,
@@ -93,3 +88,5 @@ export const addProduct = async (req: Request, res: Response) => {
       .json({ status: 500, message: "Internal Server Error 500", error });
   }
 };
+
+// EDIT PRODUCT

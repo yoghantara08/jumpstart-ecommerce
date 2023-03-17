@@ -7,8 +7,6 @@ import SearchInput from "@/components/admin/search/search-input";
 const InventoryPage = () => {
   const [search, setSearch] = useState<string | undefined>();
 
-  console.log(search);
-
   return (
     <AdminLayout title="Inventory">
       <div className="flex gap-4">

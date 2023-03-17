@@ -1,10 +1,13 @@
 import { Router } from "express";
 import {
   addCategory,
-  getCategories,
   addProduct,
 } from "../controllers/admin-inventory.controller";
 import { upload } from "../utils/multer-storage";
+import {
+  categoryValidation,
+  productValidation,
+} from "../validations/product-validation";
 
 /**
  * Admin Routes
@@ -13,12 +16,14 @@ import { upload } from "../utils/multer-storage";
 const adminRoute = Router();
 
 // add category
-adminRoute.post("/add-category", addCategory);
-
-// get categories
-adminRoute.get("/categories", getCategories);
+adminRoute.post("/add-category", categoryValidation, addCategory);
 
 // add product
-adminRoute.post("/add-product", upload.single("image"), addProduct);
+adminRoute.post(
+  "/add-product",
+  upload.single("image"),
+  productValidation,
+  addProduct
+);
 
 export default adminRoute;
