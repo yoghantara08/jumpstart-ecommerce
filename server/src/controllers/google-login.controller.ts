@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import oauth2 from "passport-google-oauth2";
 import config from "../config/config";
 import User from "../models/user.model";
+import Cart from "../models/cart.model";
 
 passport.use(
   new oauth2.Strategy(
@@ -68,6 +69,10 @@ passport.use(
         } else {
           // Create new user with Google provider
           const newUser = await User.findOneAndUpdate(filter, update, options);
+
+          // create new cart
+          const cart = new Cart({ userId: newUser?._id });
+          await cart.save();
 
           // Generate JWT Token
           const token = jwt.sign(

@@ -23,17 +23,6 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
-// const newCartItem = {
-//   product: product._id,
-//   quantity: 1
-// };
-
-// const cart = await Cart.findOneAndUpdate(
-//   { userId: userId },
-//   { $push: { items: newCartItem } },
-//   { new: true, upsert: true }
-// );
-
 const Cart = mongoose.model("Cart", cartSchema);
 
 export default Cart;

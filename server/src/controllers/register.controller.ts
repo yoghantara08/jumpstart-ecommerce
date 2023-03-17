@@ -6,6 +6,7 @@ import { IProfile } from "src/types/user";
 import User from "../models/user.model";
 import { logger } from "../utils/logger";
 import jwt from "jsonwebtoken";
+import Cart from "../models/cart.model";
 
 // register account
 export const registerAccount = async (req: Request, res: Response) => {
@@ -44,6 +45,10 @@ export const registerAccount = async (req: Request, res: Response) => {
 
     // Save new user
     const newUser = await user.save();
+
+    // create new cart
+    const cart = new Cart({ userId: newUser._id });
+    await cart.save();
 
     return res.status(201).json({
       message: "User successfully created!",
