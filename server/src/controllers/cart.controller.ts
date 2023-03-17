@@ -33,6 +33,12 @@ export const addCartItem = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const { productId, quantity } = req.body;
+    const isValidId =
+      mongoose.Types.ObjectId.isValid(userId) &&
+      mongoose.Types.ObjectId.isValid(productId);
+    if (!isValidId) {
+      return res.status(400).json({ message: "Invalid ObjectId!" });
+    }
 
     const product = await Product.findById(productId);
     if (!product) {
@@ -76,6 +82,12 @@ export const updateCartItem = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const { quantity, productId } = req.body;
+    const isValidId =
+      mongoose.Types.ObjectId.isValid(userId) &&
+      mongoose.Types.ObjectId.isValid(productId);
+    if (!isValidId) {
+      return res.status(400).json({ message: "Invalid ObjectId!" });
+    }
 
     const cart = await Cart.findOne({ userId });
 
