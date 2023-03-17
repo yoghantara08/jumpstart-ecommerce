@@ -101,7 +101,7 @@ export const editProduct = async (req: Request, res: Response) => {
 
   try {
     const productSlug = req.params.slug;
-    const { name, price, stock, description, weight, isFeatured } = req.body;
+    const { name, price, stock, description, weight } = req.body;
 
     const product = await Product.findOne({ slug: productSlug });
 
@@ -114,7 +114,6 @@ export const editProduct = async (req: Request, res: Response) => {
     product.stock = stock;
     product.description = description;
     product.weight = weight;
-    product.isFeatured = isFeatured;
 
     if (file) {
       const deleteFile = product.image.split("/").pop();

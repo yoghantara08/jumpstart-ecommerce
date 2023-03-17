@@ -31,6 +31,20 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 };
 
+// GET FEATURED PRODUCTS
+export const getFeaturedProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.find({ isFeatured: true }).select("-__v");
+
+    return res.status(200).json(products);
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};
+
 // GET PRODUCT DETAILS
 export const getProductDetails = async (req: Request, res: Response) => {
   const productSlug = req.params.slug;

@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { FiChevronDown } from "react-icons/fi";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { IProducts } from "@/types/products-type";
 
-const ProductOrder = () => {
-  const stock = 15;
-  const options = Array.from({ length: stock }, (_v, index) => index + 1);
+interface Props {
+  product: IProducts;
+}
+const ProductOrder: React.FC<Props> = ({ product }) => {
+  const options = Array.from(
+    { length: product.stock },
+    (_v, index) => index + 1
+  );
 
   const [selectedAmount, setSelectedAmount] = useState<number>(1);
 
@@ -36,7 +42,7 @@ const ProductOrder = () => {
           </div>
         </Listbox>
         <div className="font-medium flex items-center">
-          <p>Stock: {stock}</p>
+          <p>Stock: {product.stock}</p>
         </div>
       </div>
       <div></div>

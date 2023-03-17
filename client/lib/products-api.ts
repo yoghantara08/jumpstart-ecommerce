@@ -33,6 +33,10 @@ export const getProductsAPI = async () => {
   return await API.get("/products");
 };
 
+export const getFeaturedProductsAPI = async () => {
+  return await API.get("/products/featured");
+};
+
 export const getProductDetailsAPI = async (productSlug: string) => {
   return await API.get(`/products/${productSlug}`);
 };

@@ -1,6 +1,10 @@
+import { IProducts } from "@/types/products-type";
+import React from "react";
 import ProductCard from "../products/product-card";
 
-const FeaturedProducts = () => {
+const FeaturedProducts: React.FC<{ featuredProducts: IProducts[] }> = ({
+  featuredProducts,
+}) => {
   return (
     <section className="flex justify-center bg-light py-5">
       <div className="container py-5 px-4">
@@ -11,12 +15,13 @@ const FeaturedProducts = () => {
           </p>
         </header>
         <div className="mt-3 grid grid-cols-2 gap-5 sm:flex sm:justify-between sm:overflow-x-auto pb-4 ">
-          <ProductCard className="sm:w-56" />
-          <ProductCard className="sm:w-56" />
-          <ProductCard className="sm:w-56" />
-          <ProductCard className="sm:w-56" />
-          <ProductCard className="sm:w-56" />
-          <ProductCard className="sm:w-56" />
+          {featuredProducts.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              className="sm:w-56"
+            />
+          ))}
         </div>
       </div>
     </section>
