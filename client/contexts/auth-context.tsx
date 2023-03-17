@@ -1,5 +1,6 @@
 import { profileAPI } from "@/lib/user-api";
 import { IUser } from "@/types/user-type";
+import { defaultUser } from "@/utils/default-user";
 import React, { useEffect, useReducer } from "react";
 
 // AUTH CONTEXT TYPE
@@ -7,6 +8,7 @@ type AuthContextType = {
   token: string | null;
   isLoggedIn: boolean;
   user: IUser;
+  isLoading: boolean;
   // eslint-disable-next-line no-unused-vars
   login: (token: string) => void;
   // eslint-disable-next-line no-unused-vars
@@ -18,13 +20,15 @@ type AuthContextType = {
 type AuthActionType =
   | { type: "LOGIN"; payload: { token: string } }
   | { type: "LOGOUT" }
-  | { type: "USER"; payload: { user: IUser } };
+  | { type: "USER"; payload: { user: IUser } }
+  | { type: "LOADING"; payload: { isLoading: boolean } };
 
 // AUTH REDUCER STATE TYPE
 type AuthStateType = {
   token: string | null;
   isLoggedIn: boolean;
   user: IUser;
+  isLoading: boolean;
 };
 
 // AUTH REDUCER
@@ -44,9 +48,19 @@ const authReducer = (
         ...state,
         token: null,
         isLoggedIn: false,
+        user: defaultUser,
       };
     case "USER": {
-      return { ...state, user: action.payload.user };
+      return {
+        ...state,
+        user: action.payload.user,
+      };
+    }
+    case "LOADING": {
+      return {
+        ...state,
+        isLoading: action.payload.isLoading,
+      };
     }
     default:
       throw new Error("Invalid action");
@@ -57,26 +71,8 @@ const authReducer = (
 const AuthContext = React.createContext<AuthContextType>({
   token: null,
   isLoggedIn: false,
-  user: {
-    _id: "",
-    email: "",
-    isFirstLogin: false,
-    role: "",
-    provider: "",
-    profile: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      country: "",
-      city: "",
-      address: "",
-      postalCode: "",
-      birthday: "",
-      image: "",
-    },
-    createdAt: "",
-    updatedAt: "",
-  },
+  user: defaultUser,
+  isLoading: false,
   // eslint-disable-next-line no-unused-vars
   login: (token: string) => {},
   // eslint-disable-next-line no-unused-vars
@@ -91,26 +87,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const initialAuthState: AuthStateType = {
     token: null,
     isLoggedIn: false,
-    user: {
-      _id: "",
-      email: "",
-      isFirstLogin: false,
-      role: "",
-      provider: "",
-      profile: {
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        country: "",
-        city: "",
-        address: "",
-        postalCode: "",
-        birthday: "",
-        image: "",
-      },
-      createdAt: "",
-      updatedAt: "",
-    },
+    user: defaultUser,
+    isLoading: false,
   };
   const [authState, dispatch] = useReducer(authReducer, initialAuthState);
 
@@ -122,6 +100,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (storedToken) {
+      dispatch({ type: "LOADING", payload: { isLoading: true } });
       dispatch({ type: "LOGIN", payload: { token: storedToken } });
       // fetch user data
       profileAPI(storedToken)
@@ -135,6 +114,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     } else {
       dispatch({ type: "LOGOUT" });
     }
+
+    dispatch({ type: "LOADING", payload: { isLoading: false } });
   }, [storedToken]);
 
   // Login handler
@@ -158,6 +139,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     token: authState.token,
     isLoggedIn: authState.isLoggedIn,
     user: authState.user,
+    isLoading: authState.isLoading,
     updateUser: userHandler,
     login: loginHandler,
     logout: logoutHandler,
