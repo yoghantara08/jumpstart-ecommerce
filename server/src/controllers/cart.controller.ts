@@ -119,3 +119,41 @@ export const updateCartItem = async (req: Request, res: Response) => {
       .json({ status: 500, message: "Internal Server Error 500", error });
   }
 };
+
+// DELETE CART ITEM
+export const deleteCartItem = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { productId } = req.body;
+
+  const isValidId =
+    mongoose.Types.ObjectId.isValid(userId) &&
+    mongoose.Types.ObjectId.isValid(productId);
+  if (!isValidId) {
+    return res.status(400).json({ message: "Invalid ObjectId!" });
+  }
+
+  try {
+    // Find the user's cart
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    const updatedItems: any = cart.items.filter((item) => {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      return item.product.toString() !== productId;
+    });
+
+    cart.items = updatedItems;
+
+    await cart.save();
+
+    return res.status(200).json({ message: "Item removed from cart" });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};

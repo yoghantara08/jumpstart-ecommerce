@@ -25,4 +25,14 @@ const cartSchema = new mongoose.Schema({
 
 const Cart = mongoose.model("Cart", cartSchema);
 
+Cart.prototype.removeItem = async function (productId: string) {
+  const itemIndex = this.items.findIndex((item: any) =>
+    item.product.equals(productId)
+  );
+  if (itemIndex !== -1) {
+    this.items.splice(itemIndex, 1);
+    await this.save();
+  }
+};
+
 export default Cart;

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addCartItem,
+  deleteCartItem,
   getCart,
   updateCartItem,
 } from "../controllers/cart.controller";
@@ -29,5 +30,8 @@ userRoute.post("/cart/:userId", addCartItem);
 
 // update cart
 userRoute.put("/cart/:userId", updateCartItem);
+
+// update cart
+userRoute.delete("/cart/:userId", deleteCartItem);
 
 export default userRoute;
