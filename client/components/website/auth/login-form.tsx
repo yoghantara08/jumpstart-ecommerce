@@ -41,7 +41,7 @@ const LoginForm = () => {
 
       // redirect user
       if (role === "USER") {
-        router.replace("/user/profile");
+        router.replace("/user");
       }
 
       if (role === "ADMIN") {

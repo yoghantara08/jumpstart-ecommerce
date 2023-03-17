@@ -1,8 +1,9 @@
-import useUser from "@/hooks/useUser";
-import { IMAGE_URL } from "@/lib/config";
+import AuthContext from "@/contexts/auth-context";
+import useAvatar from "@/hooks/useAvatar";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsChatLeftDots } from "react-icons/bs";
 import { FiShoppingBag } from "react-icons/fi";
@@ -12,7 +13,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 const sidebarLinks = [
   {
     name: "Profile",
-    path: "/user/profile",
+    path: "/user",
     icon: <AiOutlineUser className="w-5 h-5" />,
   },
   {
@@ -39,27 +40,23 @@ const sidebarLinks = [
 
 const UserSidebar = () => {
   const { pathname } = useRouter();
-  const { profile } = useUser();
-
-  let src;
-  if (profile) {
-    src = `${IMAGE_URL}${profile.image}`;
-  }
+  const { user } = useContext(AuthContext);
+  const { imageSrc } = useAvatar();
 
   return (
     <div className="w-full hidden md:max-w-[15rem] lg:max-w-xs md:flex md:flex-col rounded bg-white border border-gray-300 py-3 h-fit">
       <div className="px-5 border-b w-full pb-3 flex items-center gap-4">
         <div className="w-14 lg:w-16 h-14 lg:h-16 rounded-full overflow-hidden">
           <Image
-            src={src || "/user-default.png"}
-            alt={profile.firstName}
+            src={imageSrc || "/user-default.png"}
+            alt={user.profile.firstName}
             width={126}
             height={126}
             className="w-full h-full"
           />
         </div>
         <p className="lg:text-xl mb-3 font-medium">
-          {profile.firstName} {profile.lastName}
+          {user.profile.firstName} {user.profile.lastName}
         </p>
       </div>
       <ul className="px-5 py-3 pb-10">

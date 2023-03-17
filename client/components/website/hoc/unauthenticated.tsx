@@ -13,7 +13,7 @@ const UnauthenticatedPage: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     // if user is not logged in, redirect to login page
     if (isLoggedIn) {
-      router.push("/user/profile");
+      router.push("/user");
     }
   }, [isLoggedIn, router]);
 

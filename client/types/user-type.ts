@@ -10,6 +10,7 @@ export interface IUser {
   role: string;
   provider: string;
   isFirstLogin: boolean;
+  profile: IProfile;
   createdAt: string;
   updatedAt: string;
 }

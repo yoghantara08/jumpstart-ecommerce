@@ -15,7 +15,7 @@ const GoogleLoginCallback = () => {
     if (token && runOnce) {
       // If a token is present, set it in the auth context to login the user
       login(token as string);
-      router.replace("/user/profile");
+      router.replace("/user");
       setRunOnce(false);
     }
 
