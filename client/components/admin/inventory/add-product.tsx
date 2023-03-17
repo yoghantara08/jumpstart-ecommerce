@@ -3,7 +3,11 @@ import Input from "@/components/website/form/input";
 import Select from "@/components/website/form/select";
 import TextArea from "@/components/website/form/text-area";
 import { IProduct } from "@/types/products-type";
-import { noSpacePattern, numberPattern } from "@/utils/validation-pattern";
+import {
+  decimalPattern,
+  noSpacePattern,
+  numberPattern,
+} from "@/utils/validation-pattern";
 import { Controller, useForm } from "react-hook-form";
 import { addProductAPI, getCategoriesAPI } from "@/lib/products-api";
 import AuthContext from "@/contexts/auth-context";
@@ -27,7 +31,7 @@ const InventoryAddProduct = () => {
       });
       setcategoryOptions(categories);
     });
-  }, [token]);
+  }, []);
 
   const {
     register,
@@ -39,6 +43,7 @@ const InventoryAddProduct = () => {
 
   const submitHandler = (data: IProduct) => {
     const file = data.image[0];
+    console.log(data);
 
     const formData = new FormData();
 
@@ -124,7 +129,7 @@ const InventoryAddProduct = () => {
               errors={errors}
               validation={{
                 required: "Price is required!",
-                pattern: numberPattern,
+                pattern: decimalPattern,
               }}
               className="px-5 py-2"
             />
@@ -216,7 +221,7 @@ const InventoryAddProduct = () => {
               errors={errors}
               validation={{
                 required: "Product weight is required!",
-                pattern: numberPattern,
+                pattern: decimalPattern,
               }}
               className="px-5 py-2"
             />

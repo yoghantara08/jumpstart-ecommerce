@@ -1,11 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import InventoryList from "@/components/admin/inventory/item-list";
+import InventoryList from "@/components/admin/inventory/inventory-list";
 import AdminLayout from "@/components/admin/layout/main-layout";
 import SearchInput from "@/components/admin/search/search-input";
+import { IProducts } from "@/types/products-type";
+import { getProductsAPI } from "@/lib/products-api";
 
 const InventoryPage = () => {
   const [search, setSearch] = useState<string | undefined>();
+  const [products, setProducts] = useState<IProducts[] | undefined>(undefined);
+  const [filteredProducts, setFilteredProducts] = useState<
+    IProducts[] | undefined
+  >(undefined);
+
+  useEffect(() => {
+    getProductsAPI()
+      .then((res) => {
+        setProducts(res.data);
+        setFilteredProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!products) {
+      return;
+    }
+
+    if (search === undefined || search === "") {
+      // If search term is empty, set the products to the original list
+      setFilteredProducts(products);
+    } else {
+      // Filter the products based on the search term
+      const filteredProducts = products.filter((product) => {
+        return product.name.toLowerCase().includes(search.toLowerCase());
+      });
+
+      setFilteredProducts(filteredProducts);
+    }
+  }, [products, search]);
 
   return (
     <AdminLayout title="Inventory">
@@ -25,7 +60,7 @@ const InventoryPage = () => {
       </div>
       <div className="bg-light rounded-lg py-4 px-6 shadow-sm mt-5">
         <SearchInput setValue={setSearch} />
-        <InventoryList />
+        <InventoryList products={filteredProducts} />
       </div>
     </AdminLayout>
   );

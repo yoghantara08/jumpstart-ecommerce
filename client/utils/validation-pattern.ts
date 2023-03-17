@@ -12,3 +12,8 @@ export const noSpacePattern = {
   value: /^\S*$/,
   message: "No whitespace allowed",
 };
+
+export const decimalPattern = {
+  value: /^\d*\.?\d*$/,
+  message: "Please enter a number",
+};

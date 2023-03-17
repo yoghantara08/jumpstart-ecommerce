@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugify from "slugify";
 
 const productSchema = new mongoose.Schema(
   {
@@ -9,6 +10,7 @@ const productSchema = new mongoose.Schema(
     slug: {
       type: String,
       required: true,
+      unique: true,
     },
     price: {
       type: String,
@@ -42,10 +44,21 @@ const productSchema = new mongoose.Schema(
     },
     isFeatured: {
       type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
 );
+
+productSchema.pre("save", function (next) {
+  // Generate the slug from the name field
+  const slug = slugify(this.name, { lower: true });
+
+  // Set the slug field to the generated slug
+  this.slug = slug;
+
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 
