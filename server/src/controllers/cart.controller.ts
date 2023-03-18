@@ -45,20 +45,21 @@ export const addCartItem = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId }).populate("items.product");
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
     // find the product on the cart items
-    const item = cart.items.find(
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      (cartItem) => cartItem.product.toString() === productId
-    );
+    const items: any = cart.items;
+    const item: any = items.find((cartItem) => {
+      return cartItem.product._id.toString() === productId;
+    });
 
     // check if the item exist then update the item and if not exist push to the item into the cart
     if (item) {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       item.quantity += Number(quantity);
     } else {
       cart.items.push({ product, quantity });
@@ -68,7 +69,7 @@ export const addCartItem = async (req: Request, res: Response) => {
 
     return res
       .status(200)
-      .json({ message: "Add item to cart successfully", cart });
+      .json({ message: "Add item to cart successfully", item });
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res

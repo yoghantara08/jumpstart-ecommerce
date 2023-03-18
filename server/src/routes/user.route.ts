@@ -26,12 +26,15 @@ userRoute.put("/profile", isAuthenticated, editProfile);
 userRoute.get("/cart/:userId", getCart);
 
 // add item to cart
+// productId & quantity
 userRoute.post("/cart/:userId", addCartItem);
 
 // update cart
+// productId & quantity
 userRoute.put("/cart/:userId", updateCartItem);
 
-// update cart
+// delete cart item
+// productId
 userRoute.delete("/cart/:userId", deleteCartItem);
 
 export default userRoute;
