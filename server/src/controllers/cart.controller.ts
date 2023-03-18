@@ -112,7 +112,7 @@ export const updateCartItem = async (req: Request, res: Response) => {
 
     return res
       .status(200)
-      .json({ message: "Update item quantity in cart successfully", cart });
+      .json({ message: "Update item quantity in cart successfully", item });
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res
