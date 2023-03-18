@@ -1,14 +1,24 @@
 import { useCart } from "@/contexts/cart-context";
-import React from "react";
+import { calculateCartTotal } from "@/utils/calculate-cart";
+import React, { useEffect } from "react";
 
 const UserCartPage = () => {
-  const { cart, addItem, updateItem, deleteItem, clearCart } = useCart();
+  const { cart, addItem } = useCart();
 
-  console.log(cart);
+  useEffect(() => {
+    console.log(cart);
+
+    const { totalItems, totalPrice } = calculateCartTotal(cart);
+
+    console.log(totalItems);
+    console.log(totalPrice);
+  }, [cart]);
 
   return (
     <div>
-      <button onClick={clearCart}>Cart Button</button>
+      <button onClick={() => addItem("6414148d1d77c85afd21d697", 5)}>
+        Cart Button
+      </button>
     </div>
   );
 };

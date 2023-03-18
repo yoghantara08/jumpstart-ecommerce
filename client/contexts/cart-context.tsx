@@ -10,14 +10,14 @@ import { IProducts } from "@/types/products-type";
 import React, { createContext, useReducer, useContext, useEffect } from "react";
 import AuthContext from "./auth-context";
 
-type CartState = {
+export type CartState = {
   cartItems: CartItem[];
   loading: boolean;
   error: string | null;
   total: number;
 };
 
-type CartItem = {
+export type CartItem = {
   quantity: number;
   product: IProducts;
 };
@@ -142,10 +142,12 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await addCartItemAPI(token, userId, productId, quantity);
 
-      dispatch({
-        type: "ADD_ITEM",
-        payload: { item: response.data.item, quantity },
-      });
+      if (response.data.item) {
+        dispatch({
+          type: "ADD_ITEM",
+          payload: { item: response.data.item, quantity },
+        });
+      }
     } catch (error: any) {
       dispatch({ type: "ERROR", payload: error.message });
     }
@@ -160,12 +162,12 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
         productId,
         quantity
       );
-      console.log(response.data.item);
-
-      dispatch({
-        type: "UPDATE_ITEM",
-        payload: response.data.item,
-      });
+      if (response.data.item) {
+        dispatch({
+          type: "UPDATE_ITEM",
+          payload: response.data.item,
+        });
+      }
     } catch (error: any) {
       dispatch({ type: "ERROR", payload: error.message });
     }
