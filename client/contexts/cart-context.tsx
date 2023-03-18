@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { addCartItemAPI, getCartAPI, updateCartItemAPI } from "@/lib/cart-api";
+import {
+  addCartItemAPI,
+  clearCartItemAPI,
+  deleteCartItemAPI,
+  getCartAPI,
+  updateCartItemAPI,
+} from "@/lib/cart-api";
 import { IProducts } from "@/types/products-type";
 import React, { createContext, useReducer, useContext, useEffect } from "react";
 import AuthContext from "./auth-context";
@@ -102,8 +108,10 @@ const CartContext = createContext<CartContextType>({
   clearCart: () => {},
 });
 
+// EXPORT useCart
 export const useCart = () => useContext(CartContext);
 
+// CART CONTEXT PROVIDER
 const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -129,6 +137,7 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [token, userId]);
 
+  // ADD CART ITEM HANDLER
   const addItem = async (productId: string, quantity: number) => {
     try {
       const response = await addCartItemAPI(token, userId, productId, quantity);
@@ -142,6 +151,7 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // UPDATE CART ITEM HANDLER
   const updateItem = async (productId: string, quantity: number) => {
     try {
       const response = await updateCartItemAPI(
@@ -161,10 +171,26 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const deleteItem = async (productId: string) => {};
+  // DELETE CART ITEM HANDLER
+  const deleteItem = async (productId: string) => {
+    try {
+      await deleteCartItemAPI(token, userId, productId);
+      dispatch({ type: "DELETE_ITEM", payload: productId });
+    } catch (error: any) {
+      dispatch({ type: "ERROR", payload: error.message });
+    }
+  };
 
-  const clearCart = () => {
-    dispatch({ type: "CLEAR_CART" });
+  // CLEAR CART ITEM HANDLER
+  const clearCart = async () => {
+    try {
+      await clearCartItemAPI(token, userId);
+      dispatch({ type: "CLEAR_CART" });
+    } catch (error: any) {
+      console.log(error);
+
+      dispatch({ type: "ERROR", payload: error.message });
+    }
   };
 
   const contextValue: CartContextType = {

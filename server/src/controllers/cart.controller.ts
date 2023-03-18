@@ -123,8 +123,7 @@ export const updateCartItem = async (req: Request, res: Response) => {
 
 // DELETE CART ITEM
 export const deleteCartItem = async (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const { productId } = req.body;
+  const { userId, productId } = req.params;
 
   const isValidId =
     mongoose.Types.ObjectId.isValid(userId) &&
@@ -151,6 +150,39 @@ export const deleteCartItem = async (req: Request, res: Response) => {
     await cart.save();
 
     return res.status(200).json({ message: "Item removed from cart" });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};
+
+// CLEAR CART
+export const clearCartItem = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  const isValidId = mongoose.Types.ObjectId.isValid(userId);
+  if (!isValidId) {
+    return res.status(400).json({ message: "Invalid ObjectId!" });
+  }
+
+  try {
+    // Find the user's cart
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Clear all items in the cart
+    const clearedItems: any = [];
+    cart.items = clearedItems;
+
+    // Save cart
+    await cart.save();
+
+    return res.status(200).json({ message: "Cart cleared!" });
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res

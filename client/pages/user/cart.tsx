@@ -1,24 +1,14 @@
 import { useCart } from "@/contexts/cart-context";
-import React, { useEffect } from "react";
+import React from "react";
 
 const UserCartPage = () => {
-  const { cart, addItem, updateItem } = useCart();
+  const { cart, addItem, updateItem, deleteItem, clearCart } = useCart();
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  const addItemHandler = () => {
-    addItem("6414148d1d77c85afd21d697", 1);
-  };
-
-  const updateItemHandler = () => {
-    updateItem("6414148d1d77c85afd21d697", 5);
-  };
+  console.log(cart);
 
   return (
     <div>
-      <button onClick={updateItemHandler}>Add item</button>
+      <button onClick={clearCart}>Cart Button</button>
     </div>
   );
 };
