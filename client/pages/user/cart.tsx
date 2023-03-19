@@ -2,13 +2,29 @@ import AuthenticatedPage from "@/components/website/hoc/authenticated";
 import MainLayout from "@/components/website/layout/main-layout";
 import CartItem from "@/components/website/user/cart-item";
 import { useCart } from "@/contexts/cart-context";
+import { getStripe, stripePaymentAPI } from "@/lib/stripe-api";
 import { calculateCartTotal } from "@/utils/calculate-cart";
-import Link from "next/link";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import Link from "next/link";
 
 const UserCartPage = () => {
   const { cart, clearCart } = useCart();
   const { totalItems, totalPrice } = calculateCartTotal(cart);
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    try {
+      const response = await stripePaymentAPI(cart.cartItems);
+      console.log(response);
+
+      const data = response.data;
+
+      stripe?.redirectToCheckout({ sessionId: data.id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <AuthenticatedPage>
@@ -66,7 +82,8 @@ const UserCartPage = () => {
                   </div>
                   <button
                     className="flex items-center justify-center gap-2 font-medium text-white 
-                bg-tosca w-full py-3 rounded mt-3 hover:opacity-80"
+                  bg-tosca w-full py-3 rounded mt-3 hover:opacity-80"
+                    onClick={handleCheckout}
                   >
                     <MdOutlineShoppingCart className="text-xl" />
                     <span className="mr-2">Checkout</span>

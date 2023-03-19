@@ -28,7 +28,8 @@
     "passport-google-oauth2": "^0.2.0",
     "pino": "^8.11.0",
     "pino-pretty": "^9.4.0",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "stripe": "^11.15.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
