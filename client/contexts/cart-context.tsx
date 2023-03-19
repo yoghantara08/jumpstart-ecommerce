@@ -18,13 +18,14 @@ export type CartState = {
 };
 
 export type CartItem = {
+  _id: string;
   quantity: number;
   product: IProducts;
 };
 
 type CartAction =
   | { type: "GET_CART"; payload: CartItem[] }
-  | { type: "ADD_ITEM"; payload: { item: CartItem; quantity: number } }
+  | { type: "ADD_ITEM"; payload: CartItem }
   | { type: "UPDATE_ITEM"; payload: CartItem }
   | { type: "DELETE_ITEM"; payload: string }
   | { type: "CLEAR_CART" }
@@ -45,7 +46,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return { ...state, cartItems: action.payload, loading: false };
     case "ADD_ITEM": {
       const existingItemIndex = state.cartItems.findIndex(
-        (item) => item.product._id === action.payload.item.product._id
+        (item) => item.product._id === action.payload.product._id
       );
       if (existingItemIndex !== -1) {
         const updatedCartItems = state.cartItems.map((item, index) => {
@@ -65,7 +66,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       } else {
         return {
           ...state,
-          cartItems: [...state.cartItems, action.payload.item],
+          cartItems: [...state.cartItems, action.payload],
           loading: false,
         };
       }
@@ -145,7 +146,7 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
       if (response.data.item) {
         dispatch({
           type: "ADD_ITEM",
-          payload: { item: response.data.item, quantity },
+          payload: response.data.item,
         });
       }
     } catch (error: any) {
@@ -162,6 +163,8 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
         productId,
         quantity
       );
+
+      console.log(response.data.item);
       if (response.data.item) {
         dispatch({
           type: "UPDATE_ITEM",

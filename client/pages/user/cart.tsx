@@ -6,10 +6,8 @@ import { calculateCartTotal } from "@/utils/calculate-cart";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 const UserCartPage = () => {
-  const { cart, clearCart, deleteItem, updateItem } = useCart();
-
+  const { cart, clearCart } = useCart();
   const { totalItems, totalPrice } = calculateCartTotal(cart);
-  console.log(cart);
 
   return (
     <AuthenticatedPage>
@@ -21,7 +19,11 @@ const UserCartPage = () => {
               <div className="grid w-full gap-3">
                 <div className="grid gap-3 order-2 lg:order-1">
                   {cart.cartItems.map((item) => (
-                    <CartItem key={item.product._id} product={item.product} />
+                    <CartItem
+                      key={item.product._id}
+                      product={item.product}
+                      quantity={item.quantity}
+                    />
                   ))}
                 </div>
                 <button

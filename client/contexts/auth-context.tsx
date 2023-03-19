@@ -1,7 +1,7 @@
 import { profileAPI } from "@/lib/user-api";
 import { IUser } from "@/types/user-type";
 import { defaultUser } from "@/utils/default-user";
-import React, { useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 
 // AUTH CONTEXT TYPE
 type AuthContextType = {
@@ -79,6 +79,8 @@ const AuthContext = React.createContext<AuthContextType>({
   updateUser: (user: IUser) => {},
   logout: () => {},
 });
+
+export const useAuth = () => useContext(AuthContext);
 
 // Context Provider
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({

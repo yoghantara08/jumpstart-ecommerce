@@ -52,8 +52,9 @@ export const addCartItem = async (req: Request, res: Response) => {
     }
 
     // find the product on the cart items
+    let item: any = null;
     const items: any = cart.items;
-    const item: any = items.find((cartItem) => {
+    item = items.find((cartItem) => {
       return cartItem.product._id.toString() === productId;
     });
 
@@ -63,6 +64,9 @@ export const addCartItem = async (req: Request, res: Response) => {
       item.quantity += Number(quantity);
     } else {
       cart.items.push({ product, quantity });
+      item = items.find((cartItem) => {
+        return cartItem.product._id.toString() === productId;
+      });
     }
 
     await cart.save();
@@ -90,17 +94,17 @@ export const updateCartItem = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid ObjectId!" });
     }
 
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId }).populate("items.product");
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
     // find the product on the cart items
-    const item = cart.items.find(
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      (cartItem) => cartItem.product.toString() === productId
-    );
+    const items: any = cart.items;
+    const item = items.find((cartItem) => {
+      return cartItem.product._id.toString() === productId;
+    });
 
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
