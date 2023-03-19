@@ -8,16 +8,29 @@ const stripe = new Stripe(config.stripeSecretKey, { apiVersion: "2022-11-15" });
 export const stripePayment = async (req: Request, res: Response) => {
   try {
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-          price: "price_1MnMhlCow2yyQzWFRr6J7GL9",
-          quantity: 1,
-        },
-      ],
+      line_items: req.body.map((item) => {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        const image = `http://localhost:8080/${item.product.image}`;
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.product.name,
+              images: [image],
+            },
+            unit_amount: item.product.price * 100,
+          },
+          adjustable_quantity: {
+            enabled: true,
+            minimum: 1,
+            maximum: item.product.stock,
+          },
+          quantity: item.quantity,
+        };
+      }),
+
       submit_type: "pay",
       mode: "payment",
-      currency: "usd",
       payment_method_types: ["card"],
       billing_address_collection: "auto",
       success_url: `${config.domain}/stripe?success=true`,
@@ -25,7 +38,7 @@ export const stripePayment = async (req: Request, res: Response) => {
     });
 
     if (session.url) {
-      res.redirect(303, session.url);
+      return res.json({ url: session.url });
     }
   } catch (error) {
     logger.error(error, "Internal Server Error 500");

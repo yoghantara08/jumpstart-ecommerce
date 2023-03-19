@@ -2,25 +2,23 @@ import AuthenticatedPage from "@/components/website/hoc/authenticated";
 import MainLayout from "@/components/website/layout/main-layout";
 import CartItem from "@/components/website/user/cart-item";
 import { useCart } from "@/contexts/cart-context";
-import { getStripe, stripePaymentAPI } from "@/lib/stripe-api";
+import { stripePaymentAPI } from "@/lib/stripe-api";
 import { calculateCartTotal } from "@/utils/calculate-cart";
-import { MdOutlineShoppingCart } from "react-icons/md";
 import Link from "next/link";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 const UserCartPage = () => {
   const { cart, clearCart } = useCart();
   const { totalItems, totalPrice } = calculateCartTotal(cart);
 
   const handleCheckout = async () => {
-    const stripe = await getStripe();
-
     try {
-      const response = await stripePaymentAPI(cart.cartItems);
-      console.log(response);
+      console.log(cart.cartItems);
 
+      const response = await stripePaymentAPI(cart.cartItems);
       const data = response.data;
 
-      stripe?.redirectToCheckout({ sessionId: data.id });
+      window.location.href = data.url;
     } catch (error) {
       console.log(error);
     }
