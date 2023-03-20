@@ -1,4 +1,6 @@
 import AuthContext from "@/contexts/auth-context";
+import { useCart } from "@/contexts/cart-context";
+import { calculateCartTotal } from "@/utils/calculate-cart";
 import Link from "next/link";
 import { useContext } from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -7,6 +9,8 @@ import UserMenu from "./user-menu";
 
 const DesktopNavigation = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  const { cart } = useCart();
+  const { totalItems } = calculateCartTotal(cart);
 
   return (
     <div className="hidden lg:flex gap-3 w-full">
@@ -27,9 +31,19 @@ const DesktopNavigation = () => {
       <ul className="flex items-center gap-3">
         {isLoggedIn && (
           <>
-            <li>
-              <MdOutlineShoppingCart className="text-2xl" />
-            </li>
+            <Link href="/user/cart">
+              <li className="py-2 px-3 rounded hover:bg-gray-50 relative">
+                <MdOutlineShoppingCart className="text-2xl" />
+                {totalItems !== 0 && (
+                  <p
+                    className="absolute right-0 top-0 -mt-1 mr-1 rounded-full bg-red-400
+                text-xs leading-none min-w-[20px] min-h-[20px] flex items-center justify-center text-white font-medium"
+                  >
+                    {totalItems}
+                  </p>
+                )}
+              </li>
+            </Link>
             <li>
               <UserMenu />
             </li>
