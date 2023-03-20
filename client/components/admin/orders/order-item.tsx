@@ -1,7 +1,7 @@
 import OrderDetails from "@/components/website/user/order-detail";
 import { IOrderManagement } from "@/types/admin-type";
 import formatDate from "@/utils/format-date";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillCheckCircle, AiFillEye } from "react-icons/ai";
 
 interface Props {
@@ -10,6 +10,21 @@ interface Props {
 
 const OrderItem: React.FC<Props> = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [statusColor, setStatusColor] = useState("");
+
+  useEffect(() => {
+    switch (order.status) {
+      case "COMPLETED":
+        setStatusColor("text-green-500");
+        break;
+      case "PROCESSED":
+        setStatusColor("text-yellow-600");
+        break;
+      case "CANCELLED":
+        setStatusColor("text-red-500");
+        break;
+    }
+  }, [order.status]);
 
   return (
     <>
@@ -22,7 +37,9 @@ const OrderItem: React.FC<Props> = ({ order }) => {
         <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
           {formatDate(order.createdAt)}
         </td>
-        <td className="border border-slate-200 px-6 py-3 text-green-400 whitespace-nowrap">
+        <td
+          className={`${statusColor} border border-slate-200 px-6 py- whitespace-nowrap`}
+        >
           {order.status}
         </td>
         <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">

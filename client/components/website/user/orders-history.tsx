@@ -27,7 +27,6 @@ const OrdersHistory: React.FC<Props> = ({ order }) => {
         setStatusColor("text-red-500");
         break;
     }
-    console.log(order.status);
   }, [order.status]);
 
   return (
