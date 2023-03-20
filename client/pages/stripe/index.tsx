@@ -1,14 +1,16 @@
 import MainLayout from "@/components/website/layout/main-layout";
+import LoadingSpinner from "@/components/website/spinner/loading-spinner";
 import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { saveOrderAPI } from "@/lib/stripe-api";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillBagCheckFill } from "react-icons/bs";
 
 const StripeSuccessPayment = () => {
-  const { query } = useRouter();
+  const [isLoading, setisLoading] = useState(true);
+  const { query, push } = useRouter();
   const { token, user } = useAuth();
   const { cart, clearCart } = useCart();
 
@@ -32,6 +34,22 @@ const StripeSuccessPayment = () => {
       handleSaveOrder();
     }
   }, [cart.cartItems, clearCart, token, user._id, query]);
+
+  useEffect(() => {
+    if (!query.key) {
+      push("/");
+    } else {
+      setisLoading(false);
+    }
+  }, [push, query.key]);
+
+  if (isLoading) {
+    return (
+      <MainLayout>
+        <LoadingSpinner />
+      </MainLayout>
+    );
+  }
 
   return (
     <MainLayout title="Success Payment">

@@ -34,34 +34,49 @@ const AdminUserMenu = () => {
           </Menu.Button>
           <Menu.Items className="absolute min-w-[140px] z-20 rounded bg-white shadow mt-3 right-0 py-1 flex flex-col">
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/admin"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <AiOutlineUser className="w-5 h-5" />
-                <Link href="/admin">Dashboard</Link>
-              </div>
+                <p>Dashboard</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/admin/orders"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <FiShoppingBag className="w-5 h-5" />
-                <Link href="/admin/orders">Orders</Link>
-              </div>
+                <p>Orders</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/admin/inventory"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <MdOutlineShoppingCart className="w-5 h-5" />
-                <Link href="/admin/inventory">Inventory</Link>
-              </div>
+                <p>Inventory</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/admin/customers"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <BsPerson className="w-5 h-5" />
-                <Link href="/admin/customers">Customers</Link>
-              </div>
+                <p>Customers</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/admin/settings"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <IoSettingsOutline className="w-5 h-5" />
-                <Link href="/admin/settings">Settings</Link>
-              </div>
+                <p>Settings</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
               <div

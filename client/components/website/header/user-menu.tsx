@@ -18,7 +18,7 @@ const UserMenu = () => {
     <div className="flex justify-center">
       <Menu>
         <div className="relative">
-          <Menu.Button className="flex items-center gap-3">
+          <Menu.Button className="flex items-center gap-3 min-w-[120px]">
             <div className="w-10 h-10 rounded-full overflow-hidden">
               <Image
                 src={imageSrc || "/user-default.png"}
@@ -31,30 +31,42 @@ const UserMenu = () => {
               {user.profile.firstName}
             </p>
           </Menu.Button>
-          <Menu.Items className="absolute w-fit z-20 rounded bg-white shadow mt-3 lg:right-0 py-1 flex flex-col">
+          <Menu.Items className="absolute w-fit z-20 min-w-[140px] rounded bg-white shadow mt-3 lg:right-0 py-1 flex flex-col">
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/user"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <AiOutlineUser className="w-5 h-5" />
-                <Link href="/user">Profile</Link>
-              </div>
+                <p>Profile</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/user/orders"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <FiShoppingBag className="w-5 h-5" />
-                <Link href="/user/orders">Orders</Link>
-              </div>
+                <p>Orders</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/user/cart"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <MdOutlineShoppingCart className="w-5 h-5" />
-                <Link href="/user/cart">Cart</Link>
-              </div>
+                <p>Cart</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
-              <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
+              <Link
+                href="/user/settings"
+                className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
+              >
                 <IoSettingsOutline className="w-5 h-5" />
-                <Link href="/user/settings">Settings</Link>
-              </div>
+                <p>Settings</p>
+              </Link>
             </Menu.Item>
             <Menu.Item>
               <div
