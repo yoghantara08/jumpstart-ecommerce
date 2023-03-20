@@ -3,11 +3,12 @@ import { useCart } from "@/contexts/cart-context";
 import { calculateCartTotal } from "@/utils/calculate-cart";
 import Link from "next/link";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import AdminUserMenu from "./admin-user-menu";
 import SearchBar from "./search-bar";
 import UserMenu from "./user-menu";
 
 const DesktopNavigation = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const { cart } = useCart();
   const { totalItems } = calculateCartTotal(cart);
 
@@ -43,9 +44,7 @@ const DesktopNavigation = () => {
                 )}
               </li>
             </Link>
-            <li>
-              <UserMenu />
-            </li>
+            <li>{user.role === "USER" ? <UserMenu /> : <AdminUserMenu />}</li>
           </>
         )}
 
