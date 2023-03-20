@@ -1,5 +1,6 @@
 import { IMAGE_URL } from "@/lib/config";
 import { IOrder } from "@/types/products-type";
+import formatDate from "@/utils/format-date";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -10,6 +11,7 @@ interface Props {
 
 const OrdersHistory: React.FC<Props> = ({ order }) => {
   const [statusColor, setStatusColor] = useState("");
+  const date = formatDate(order.createdAt);
 
   useEffect(() => {
     switch (order.status) {
@@ -36,7 +38,7 @@ const OrdersHistory: React.FC<Props> = ({ order }) => {
         >
           #{order._id}
         </Link>
-        {/* <span>{date}</span> */}
+        <span>{date}</span>
         <span className={statusColor}>{order.status}</span>
       </div>
       <div className="w-full flex flex-col mt-3 gap-3">
