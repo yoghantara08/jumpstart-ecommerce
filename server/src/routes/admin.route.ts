@@ -4,6 +4,9 @@ import {
   addProduct,
   editProduct,
 } from "../controllers/admin-inventory.controller";
+import { getOrders } from "../controllers/admin-orders.controller";
+import isAdmin from "../middleware/isAdmin";
+import isAuthenticated from "../middleware/isAuthenticated";
 import { upload } from "../utils/multer-storage";
 import {
   categoryValidation,
@@ -16,12 +19,21 @@ import {
  */
 const adminRoute = Router();
 
+// INVENTORY
 // add category
-adminRoute.post("/add-category", categoryValidation, addCategory);
+adminRoute.post(
+  "/add-category",
+  isAuthenticated,
+  isAdmin,
+  categoryValidation,
+  addCategory
+);
 
 // add product
 adminRoute.post(
   "/add-product",
+  isAuthenticated,
+  isAdmin,
   upload.single("image"),
   productValidation,
   addProduct
@@ -30,9 +42,14 @@ adminRoute.post(
 // edit product
 adminRoute.post(
   "/edit-product/:slug",
+  isAuthenticated,
+  isAdmin,
   upload.single("image"),
   productValidation,
   editProduct
 );
+
+// ORDERS
+adminRoute.get("/orders", isAuthenticated, isAdmin, getOrders);
 
 export default adminRoute;
