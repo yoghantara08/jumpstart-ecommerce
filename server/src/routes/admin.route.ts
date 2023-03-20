@@ -4,7 +4,11 @@ import {
   addProduct,
   editProduct,
 } from "../controllers/admin-inventory.controller";
-import { getOrders } from "../controllers/admin-orders.controller";
+import {
+  cancelOrder,
+  completeOrder,
+  getOrders,
+} from "../controllers/admin-orders.controller";
 import isAdmin from "../middleware/isAdmin";
 import isAuthenticated from "../middleware/isAuthenticated";
 import { upload } from "../utils/multer-storage";
@@ -50,6 +54,23 @@ adminRoute.post(
 );
 
 // ORDERS
+// get orders
 adminRoute.get("/orders", isAuthenticated, isAdmin, getOrders);
+
+// complete order
+adminRoute.put(
+  "/orders/complete/:orderId",
+  isAuthenticated,
+  isAdmin,
+  completeOrder
+);
+
+// cancel order
+adminRoute.put(
+  "/orders/cancel/:orderId",
+  isAuthenticated,
+  isAdmin,
+  cancelOrder
+);
 
 export default adminRoute;

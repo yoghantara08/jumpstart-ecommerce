@@ -1,4 +1,6 @@
 import OrderDetails from "@/components/website/user/order-detail";
+import { useAuth } from "@/contexts/auth-context";
+import { cancelOrderAPI, completeOrderAPI } from "@/lib/admin-api";
 import { IOrderManagement } from "@/types/admin-type";
 import formatDate from "@/utils/format-date";
 import React, { useEffect, useState } from "react";
@@ -9,6 +11,7 @@ interface Props {
 }
 
 const OrderItem: React.FC<Props> = ({ order }) => {
+  const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [statusColor, setStatusColor] = useState("");
 
@@ -25,6 +28,34 @@ const OrderItem: React.FC<Props> = ({ order }) => {
         break;
     }
   }, [order.status]);
+
+  const completeHandler = async (orderId: string) => {
+    try {
+      const accept = confirm(
+        `You sure want to complete the order with ID: ${orderId}?`
+      );
+      if (accept) {
+        await completeOrderAPI(token, orderId);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cancelHandler = async (orderId: string) => {
+    try {
+      const accept = confirm(
+        `You sure want to cancel the order with ID: ${orderId}?`
+      );
+      if (accept) {
+        await cancelOrderAPI(token, orderId);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -53,7 +84,13 @@ const OrderItem: React.FC<Props> = ({ order }) => {
               onClick={() => setIsOpen(true)}
             />
 
-            <AiFillCheckCircle className="w-8 h-8 text-green-600 cursor-pointer" />
+            <AiFillCheckCircle
+              className="w-8 h-8 text-green-600 cursor-pointer"
+              onClick={async () => await completeHandler(order._id)}
+            />
+            <button onClick={async () => await cancelHandler(order._id)}>
+              cancel
+            </button>
           </div>
         </td>
       </tr>
