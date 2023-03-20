@@ -1,3 +1,4 @@
+import AuthenticatedPage from "@/components/website/hoc/authenticated";
 import MainLayout from "@/components/website/layout/main-layout";
 import LoadingSpinner from "@/components/website/spinner/loading-spinner";
 import { useAuth } from "@/contexts/auth-context";
@@ -54,29 +55,31 @@ const StripeSuccessPayment = () => {
   }
 
   return (
-    <MainLayout title="Success Payment">
-      <div className="flex justify-center items-center h-full w-full px-5">
-        <div
-          className="flex flex-col justify-center items-center w-full max-w-3xl border border-gray-200 bg-gray-100 rounded 
+    <AuthenticatedPage>
+      <MainLayout title="Success Payment">
+        <div className="flex justify-center items-center h-full w-full px-5">
+          <div
+            className="flex flex-col justify-center items-center w-full max-w-3xl border border-gray-200 bg-gray-100 rounded 
           py-10 p-5 gap-2 md:gap-3 text-center md:-mt-36"
-        >
-          <BsFillBagCheckFill className="text-green-600 text-3xl" />
-          <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold text-slate-600">
-            Thank You For Your Purchase
-          </h1>
-          <p className="font-medium font-montserrat text-sm">
-            If you have any questions, please email
-            <span className="text-tosca"> jumpstart@gmail.com</span>
-          </p>
-          <Link
-            href="/products"
-            className="bg-tosca text-white px-5 py-2 lg:py-3 rounded hover:opacity-80 mt-3"
           >
-            Continue Shopping
-          </Link>
+            <BsFillBagCheckFill className="text-green-600 text-3xl" />
+            <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold text-slate-600">
+              Thank You For Your Purchase
+            </h1>
+            <p className="font-medium font-montserrat text-sm">
+              If you have any questions, please email
+              <span className="text-tosca"> jumpstart@gmail.com</span>
+            </p>
+            <Link
+              href="/products"
+              className="bg-tosca text-white px-5 py-2 lg:py-3 rounded hover:opacity-80 mt-3"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         </div>
-      </div>
-    </MainLayout>
+      </MainLayout>
+    </AuthenticatedPage>
   );
 };
 
