@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import { Stripe } from "stripe";
 import config from "../config/config";
 import { logger } from "../utils/logger";
-import Order from "../models/order.model";
-import User from "../models/user.model";
-import jwt from "jsonwebtoken";
 
 const stripe = new Stripe(config.stripeSecretKey, { apiVersion: "2022-11-15" });
 
@@ -47,49 +44,6 @@ export const stripePayment = async (req: Request, res: Response) => {
     if (session.url) {
       return res.json({ url: session.url });
     }
-  } catch (error) {
-    logger.error(error, "Internal Server Error 500");
-    return res
-      .status(500)
-      .json({ status: 500, message: "Internal Server Error 500", error });
-  }
-};
-
-export const saveOrder = async (req: Request, res: Response) => {
-  const { userId } = req.params;
-
-  const isValidId = mongoose.Types.ObjectId.isValid(userId);
-  if (!isValidId) {
-    return res.status(400).json({ message: "Invalid ObjectId!" });
-  }
-
-  try {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(400).json({ message: "User not found!" });
-    }
-
-    const orderItems = req.body.map((item) => ({
-      product: item.product._id,
-      quantity: item.quantity,
-      price: item.product.price,
-    }));
-    const order = new Order({
-      userId: user._id,
-      items: orderItems,
-      totalPrice: req.body.reduce(
-        (total, item) =>
-          Number(total) + Number(item.product.price) * Number(item.quantity),
-        0
-      ),
-    });
-
-    const newOrder = await order.save();
-
-    return res
-      .status(200)
-      .json({ message: "Order successfully saved!", order: newOrder });
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res

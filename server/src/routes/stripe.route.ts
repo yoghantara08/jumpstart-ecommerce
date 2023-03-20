@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { saveOrder, stripePayment } from "../controllers/stripe.controller";
+import { saveOrder } from "../controllers/order.controller";
+import { stripePayment } from "../controllers/stripe.controller";
 import isAuthenticated from "../middleware/isAuthenticated";
 import successPayment from "../middleware/successPayment";
 
