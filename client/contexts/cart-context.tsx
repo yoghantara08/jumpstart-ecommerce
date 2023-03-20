@@ -36,7 +36,7 @@ type CartContextType = {
   addItem: (productId: string, quantity: number) => Promise<void>;
   updateItem: (productId: string, quantity: number) => Promise<void>;
   deleteItem: (productId: string) => Promise<void>;
-  clearCart: () => void;
+  clearCart: () => Promise<void>;
 };
 
 // CART REDUCER
@@ -106,7 +106,7 @@ const CartContext = createContext<CartContextType>({
   addItem: async () => {},
   updateItem: async () => {},
   deleteItem: async () => {},
-  clearCart: () => {},
+  clearCart: async () => {},
 });
 
 // EXPORT useCart

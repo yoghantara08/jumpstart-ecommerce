@@ -1,6 +1,7 @@
 import AuthenticatedPage from "@/components/website/hoc/authenticated";
 import MainLayout from "@/components/website/layout/main-layout";
 import CartItem from "@/components/website/user/cart-item";
+import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { stripePaymentAPI } from "@/lib/stripe-api";
 import { calculateCartTotal } from "@/utils/calculate-cart";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 const UserCartPage = () => {
+  const { token } = useAuth();
   const { cart, clearCart } = useCart();
   const { totalItems, totalPrice } = calculateCartTotal(cart);
 
@@ -15,7 +17,7 @@ const UserCartPage = () => {
     try {
       console.log(cart.cartItems);
 
-      const response = await stripePaymentAPI(cart.cartItems);
+      const response = await stripePaymentAPI(cart.cartItems, token);
       const data = response.data;
 
       window.location.href = data.url;

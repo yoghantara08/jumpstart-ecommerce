@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { stripePayment } from "../controllers/stripe.controller";
+import { saveOrder, stripePayment } from "../controllers/stripe.controller";
+import isAuthenticated from "../middleware/isAuthenticated";
+import successPayment from "../middleware/successPayment";
 
 /**
  * Stripe Routes
@@ -7,6 +9,13 @@ import { stripePayment } from "../controllers/stripe.controller";
  */
 const stripeRoute = Router();
 
-stripeRoute.post("/payment", stripePayment);
+stripeRoute.post("/payment", isAuthenticated, stripePayment);
+
+stripeRoute.post(
+  "/save-order/:userId/:key",
+  isAuthenticated,
+  successPayment,
+  saveOrder
+);
 
 export default stripeRoute;
