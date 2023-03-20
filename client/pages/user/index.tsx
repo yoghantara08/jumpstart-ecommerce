@@ -6,6 +6,7 @@ import ProfileContact from "@/components/website/user/profile-contact";
 import ProfileInformation from "@/components/website/user/profile-information";
 import AuthContext from "@/contexts/auth-context";
 import useAvatar from "@/hooks/useAvatar";
+import formatDate from "@/utils/format-date";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
@@ -14,10 +15,7 @@ const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const { imageSrc } = useAvatar();
 
-  const date = new Date(user.profile.birthday);
-  const birthdate = `${date.getDay()}-${
-    date.getMonth() + 1
-  }-${date.getFullYear()}`;
+  const birthdate = formatDate(user.profile.birthday);
 
   if (user && user.isFirstLogin) {
     return (

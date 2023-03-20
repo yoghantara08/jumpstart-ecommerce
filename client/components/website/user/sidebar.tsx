@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsChatLeftDots } from "react-icons/bs";
 import { FiShoppingBag } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -25,11 +24,6 @@ const sidebarLinks = [
     name: "Shopping Cart",
     path: "/user/cart",
     icon: <MdOutlineShoppingCart className="w-5 h-5" />,
-  },
-  {
-    name: "Chat",
-    path: "/user/chat",
-    icon: <BsChatLeftDots className="w-5 h-5" />,
   },
   {
     name: "Settings",
