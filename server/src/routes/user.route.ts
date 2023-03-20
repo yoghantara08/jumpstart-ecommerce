@@ -24,20 +24,20 @@ userRoute.put("/profile", isAuthenticated, editProfile);
 
 // SHOPPING CART
 // get cart
-userRoute.get("/cart/:userId", getCart);
+userRoute.get("/cart/:userId", isAuthenticated, getCart);
 
 // add item to cart
 // productId & quantity
-userRoute.post("/cart/:userId", addCartItem);
+userRoute.post("/cart/:userId", isAuthenticated, addCartItem);
 
 // update cart
 // productId & quantity
-userRoute.put("/cart/:userId", updateCartItem);
+userRoute.put("/cart/:userId", isAuthenticated, updateCartItem);
 
 // delete cart item
-userRoute.delete("/cart/:userId/:productId", deleteCartItem);
+userRoute.delete("/cart/:userId/:productId", isAuthenticated, deleteCartItem);
 
 // clear cart item
-userRoute.put("/cart/clear-cart/:userId", clearCartItem);
+userRoute.put("/cart/clear-cart/:userId", isAuthenticated, clearCartItem);
 
 export default userRoute;
