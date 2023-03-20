@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsBoxArrowInRight, BsChatLeftDots } from "react-icons/bs";
+import { BsBoxArrowInRight } from "react-icons/bs";
 import { FiShoppingBag } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLocalShipping } from "react-icons/md";
@@ -27,11 +27,6 @@ const adminLinks = [
     name: "Customers",
     path: "/admin/customers",
     icon: <AiOutlineUser className="w-5 h-5" />,
-  },
-  {
-    name: "Chat",
-    path: "/admin/chat",
-    icon: <BsChatLeftDots className="w-5 h-5" />,
   },
   {
     name: "Settings",
