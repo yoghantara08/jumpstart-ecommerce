@@ -40,3 +40,18 @@ export interface IEditProduct {
   weight: string;
   image?: any;
 }
+
+export interface IOrder {
+  _id: string;
+  userId: string;
+  items: IOrderItem[];
+  totalPrice: number;
+  status: string;
+  createdAt: string;
+}
+
+export interface IOrderItem {
+  product: IProducts;
+  quantity: number;
+  price: number;
+}

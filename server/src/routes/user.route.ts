@@ -6,6 +6,7 @@ import {
   getCart,
   updateCartItem,
 } from "../controllers/cart.controller";
+import { getOrderHistory } from "../controllers/order.controller";
 import { editProfile, getUserProfile } from "../controllers/profile.controller";
 import isAuthenticated from "../middleware/isAuthenticated";
 
@@ -39,5 +40,9 @@ userRoute.delete("/cart/:userId/:productId", isAuthenticated, deleteCartItem);
 
 // clear cart item
 userRoute.put("/cart/clear-cart/:userId", isAuthenticated, clearCartItem);
+
+// ORDER
+// get order history
+userRoute.get("/order/:userId", isAuthenticated, getOrderHistory);
 
 export default userRoute;

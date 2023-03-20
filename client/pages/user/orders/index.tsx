@@ -2,55 +2,52 @@ import MainLayout from "@/components/website/layout/main-layout";
 import UserContainer from "@/components/website/layout/container";
 import OrdersFilter from "@/components/website/user/orders-filter";
 import OrdersHistory from "@/components/website/user/orders-history";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { orderFilters } from "@/utils/orders-filter";
 import AuthenticatedPage from "@/components/website/hoc/authenticated";
-
-const orders = [
-  {
-    orderId: "21",
-    date: "12 March 2023",
-    orderStatus: "COMPLETED",
-    total: "250,44",
-    items: [
-      {
-        name: "Sport Shoes Nike1",
-        amount: 2,
-        price: "125,22",
-        image: "/shoes1.jpg",
-      },
-      {
-        name: "Sport Shoes Nike2",
-        amount: 2,
-        price: "125,22",
-        image: "/shoes1.jpg",
-      },
-    ],
-  },
-  {
-    orderId: "19",
-    date: "5 March 2023",
-    orderStatus: "PROCCESSED",
-    total: "250,44",
-    items: [
-      {
-        name: "Sport Shoes Nike3",
-        amount: 2,
-        price: "125,22",
-        image: "/shoes1.jpg",
-      },
-      {
-        name: "Sport Shoes Nike4",
-        amount: 2,
-        price: "125,22",
-        image: "/shoes1.jpg",
-      },
-    ],
-  },
-];
+import { IOrder } from "@/types/products-type";
+import { getOrderHistoryAPI } from "@/lib/user-api";
+import { useAuth } from "@/contexts/auth-context";
 
 const UserOrdersPage = () => {
   const [filterOrder, setFilterOrder] = useState<string>("ALL");
+  const [orders, setOrders] = useState<IOrder[] | null>();
+  const [filteredOrders, setFilteredOrders] = useState<IOrder[]>();
+  const { token, user } = useAuth();
+
+  useEffect(() => {
+    getOrderHistoryAPI(token, user._id)
+      .then((res) => {
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token, user._id]);
+
+  useEffect(() => {
+    if (orders)
+      switch (filterOrder) {
+        case "ALL":
+          setFilteredOrders(orders);
+          break;
+        case "PROCESSED":
+          setFilteredOrders(
+            orders?.filter((item) => item.status === "PROCESSED")
+          );
+          break;
+        case "COMPLETED":
+          setFilteredOrders(
+            orders?.filter((item) => item.status === "COMPLETED")
+          );
+          break;
+        case "CANCELLED":
+          setFilteredOrders(
+            orders?.filter((item) => item.status === "CANCELLED")
+          );
+          break;
+      }
+  }, [filterOrder, orders]);
 
   return (
     <AuthenticatedPage>
@@ -62,16 +59,13 @@ const UserOrdersPage = () => {
             filter={filterOrder}
             setFilter={setFilterOrder}
           />
-          {orders.map((order) => (
-            <OrdersHistory
-              key={order.orderId}
-              orderId={order.orderId}
-              date={order.date}
-              orderStatus={order.orderStatus}
-              total={order.total}
-              items={order.items}
-            />
-          ))}
+          {filteredOrders ? (
+            filteredOrders.map((order) => (
+              <OrdersHistory key={order._id} order={order} />
+            ))
+          ) : (
+            <p>No order yet</p>
+          )}
         </UserContainer>
       </MainLayout>
     </AuthenticatedPage>

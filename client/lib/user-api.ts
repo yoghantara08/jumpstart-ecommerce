@@ -15,3 +15,13 @@ export const editProfileAPI = async (
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+// order
+export const getOrderHistoryAPI = async (
+  token: string | null,
+  userId: string
+) => {
+  return await API.get(`/user/order/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
