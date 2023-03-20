@@ -17,14 +17,13 @@ const StripeSuccessPayment = () => {
   useEffect(() => {
     const handleSaveOrder = async () => {
       try {
-        const response = await saveOrderAPI(
+        await saveOrderAPI(
           cart.cartItems,
           token,
           user._id,
           query.key as string
         );
         await clearCart();
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -36,12 +35,15 @@ const StripeSuccessPayment = () => {
   }, [cart.cartItems, clearCart, token, user._id, query]);
 
   useEffect(() => {
-    if (!query.key) {
-      push("/");
-    } else {
-      setisLoading(false);
-    }
-  }, [push, query.key]);
+    const timeout = setTimeout(() => {
+      if (!query.key) {
+        push("/");
+      } else {
+        setisLoading(false);
+      }
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [cart.cartItems.length, push, query.key]);
 
   if (isLoading) {
     return (

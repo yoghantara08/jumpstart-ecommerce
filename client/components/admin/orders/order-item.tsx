@@ -59,7 +59,13 @@ const OrderItem: React.FC<Props> = ({ order }) => {
 
   return (
     <>
-      <OrderDetails isOpen={isOpen} setIsOpen={setIsOpen} order={order} />
+      {isOpen && (
+        <tr>
+          <td colSpan={6}>
+            <OrderDetails isOpen={isOpen} setIsOpen={setIsOpen} order={order} />
+          </td>
+        </tr>
+      )}
       <tr>
         <td className="border border-slate-200 px-6 py-3">#{order._id}</td>
         <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
