@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 // AUTH CONTEXT TYPE
 type AuthContextType = {
   token: string | null;
-  isLoggedIn: boolean;
+  isLoggedIn: null | "AUTHENTICATED" | "UNAUTHENTICATED";
   user: IUser;
   isLoading: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -26,7 +26,7 @@ type AuthActionType =
 // AUTH REDUCER STATE TYPE
 type AuthStateType = {
   token: string | null;
-  isLoggedIn: boolean;
+  isLoggedIn: null | "AUTHENTICATED" | "UNAUTHENTICATED";
   user: IUser;
   isLoading: boolean;
 };
@@ -41,13 +41,13 @@ const authReducer = (
       return {
         ...state,
         token: action.payload.token,
-        isLoggedIn: true,
+        isLoggedIn: "AUTHENTICATED",
       };
     case "LOGOUT":
       return {
         ...state,
         token: null,
-        isLoggedIn: false,
+        isLoggedIn: "UNAUTHENTICATED",
         user: defaultUser,
       };
     case "USER": {
@@ -70,7 +70,7 @@ const authReducer = (
 // Create Context API
 const AuthContext = React.createContext<AuthContextType>({
   token: null,
-  isLoggedIn: false,
+  isLoggedIn: null,
   user: defaultUser,
   isLoading: false,
   // eslint-disable-next-line no-unused-vars
@@ -88,7 +88,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const initialAuthState: AuthStateType = {
     token: null,
-    isLoggedIn: false,
+    isLoggedIn: null,
     user: defaultUser,
     isLoading: false,
   };

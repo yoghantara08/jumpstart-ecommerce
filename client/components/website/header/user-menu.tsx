@@ -31,7 +31,7 @@ const UserMenu = () => {
               {user.profile.firstName}
             </p>
           </Menu.Button>
-          <Menu.Items className="absolute w-full z-20 rounded bg-white shadow mt-3 lg:right-0 lg:w-full py-1 flex flex-col">
+          <Menu.Items className="absolute w-fit z-20 rounded bg-white shadow mt-3 lg:right-0 py-1 flex flex-col">
             <Menu.Item>
               <div className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200">
                 <AiOutlineUser className="w-5 h-5" />

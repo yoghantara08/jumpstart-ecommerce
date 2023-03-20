@@ -36,6 +36,8 @@ const LoginForm = () => {
       const response = await loginAPI(data);
       const { token, role } = response.data;
 
+      console.log(role === "USER");
+
       // set login state
       login(token);
 

@@ -61,8 +61,8 @@ const MobileNavigation = () => {
             <li className="flex justify-center">
               <Link href="/products">Products</Link>
             </li>
-            {isLoggedIn && <UserMenu />}
-            {!isLoggedIn && (
+            {isLoggedIn === "AUTHENTICATED" && <UserMenu />}
+            {isLoggedIn === "UNAUTHENTICATED" && (
               <>
                 <li>
                   <Link href="/auth/login">

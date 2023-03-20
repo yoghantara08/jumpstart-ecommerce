@@ -1,13 +1,13 @@
-import AuthContext from "@/contexts/auth-context";
+import { useAuth } from "@/contexts/auth-context";
 import { IMAGE_URL } from "@/lib/config";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useAvatar = () => {
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { user, isLoggedIn } = useAuth();
   const [imageSrc, setImageSrc] = useState<string>("");
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn === "AUTHENTICATED") {
       if (user.provider === "LOCAL") {
         setImageSrc(`${IMAGE_URL}${user.profile.image}`);
       }

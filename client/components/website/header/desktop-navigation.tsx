@@ -1,14 +1,13 @@
-import AuthContext from "@/contexts/auth-context";
+import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { calculateCartTotal } from "@/utils/calculate-cart";
 import Link from "next/link";
-import { useContext } from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import SearchBar from "./search-bar";
 import UserMenu from "./user-menu";
 
 const DesktopNavigation = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useAuth();
   const { cart } = useCart();
   const { totalItems } = calculateCartTotal(cart);
 
@@ -29,7 +28,7 @@ const DesktopNavigation = () => {
       </ul>
       <SearchBar />
       <ul className="flex items-center gap-3">
-        {isLoggedIn && (
+        {isLoggedIn === "AUTHENTICATED" && (
           <>
             <Link href="/user/cart">
               <li className="py-2 px-3 rounded hover:bg-gray-50 relative">
@@ -50,7 +49,7 @@ const DesktopNavigation = () => {
           </>
         )}
 
-        {!isLoggedIn && (
+        {isLoggedIn === "UNAUTHENTICATED" && (
           <>
             <li>
               <Link href="/auth/login">

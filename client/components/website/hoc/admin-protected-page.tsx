@@ -8,24 +8,27 @@ interface Props {
   children: React.ReactNode;
 }
 
-const UnauthenticatedPage: React.FC<Props> = ({ children }) => {
+const AdminProtectedPage: React.FC<Props> = ({ children }) => {
   const { isLoggedIn, user } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(user.role);
+
   useEffect(() => {
     // if user is logged in, redirect to user page
-    if (isLoggedIn === "AUTHENTICATED" && user.role) {
-      if (user.role === "USER") {
-        router.push("/user");
+    if (user.role && isLoggedIn === "AUTHENTICATED") {
+      if (user.role !== "ADMIN") {
+        router.push("/");
       }
+
       if (user.role === "ADMIN") {
-        router.push("/admin");
+        setIsLoading(false);
       }
     }
 
     if (isLoggedIn === "UNAUTHENTICATED") {
-      setIsLoading(false);
+      router.push("/auth/login");
     }
   }, [isLoggedIn, router, user.role]);
 
@@ -36,7 +39,8 @@ const UnauthenticatedPage: React.FC<Props> = ({ children }) => {
       </MainLayout>
     );
   }
+
   return <>{children}</>;
 };
 
-export default UnauthenticatedPage;
+export default AdminProtectedPage;

@@ -5,6 +5,7 @@ import AdminLayout from "@/components/admin/layout/main-layout";
 import SearchInput from "@/components/admin/search/search-input";
 import { IProducts } from "@/types/products-type";
 import { getProductsAPI } from "@/lib/products-api";
+import AdminProtectedPage from "@/components/website/hoc/admin-protected-page";
 
 const InventoryPage = () => {
   const [search, setSearch] = useState<string | undefined>();
@@ -43,26 +44,28 @@ const InventoryPage = () => {
   }, [products, search]);
 
   return (
-    <AdminLayout title="Inventory">
-      <div className="flex gap-4">
-        <Link
-          href="/admin/inventory/add-product"
-          className="px-5 py-3 rounded bg-lightBlue text-white font-medium"
-        >
-          Add Product
-        </Link>
-        <Link
-          href="/admin/inventory/add-category"
-          className="px-5 py-3 rounded bg-lightBlue text-white font-medium"
-        >
-          Add Category
-        </Link>
-      </div>
-      <div className="bg-light rounded-lg py-4 px-6 shadow-sm mt-5">
-        <SearchInput setValue={setSearch} />
-        <InventoryList products={filteredProducts} />
-      </div>
-    </AdminLayout>
+    <AdminProtectedPage>
+      <AdminLayout title="Inventory">
+        <div className="flex gap-4">
+          <Link
+            href="/admin/inventory/add-product"
+            className="px-5 py-3 rounded bg-lightBlue text-white font-medium"
+          >
+            Add Product
+          </Link>
+          <Link
+            href="/admin/inventory/add-category"
+            className="px-5 py-3 rounded bg-lightBlue text-white font-medium"
+          >
+            Add Category
+          </Link>
+        </div>
+        <div className="bg-light rounded-lg py-4 px-6 shadow-sm mt-5">
+          <SearchInput setValue={setSearch} />
+          <InventoryList products={filteredProducts} />
+        </div>
+      </AdminLayout>{" "}
+    </AdminProtectedPage>
   );
 };
 
