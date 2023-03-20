@@ -1,4 +1,5 @@
 import { IMAGE_URL } from "@/lib/config";
+import { IOrderManagement } from "@/types/admin-type";
 import { IOrder } from "@/types/products-type";
 import formatDate from "@/utils/format-date";
 import { Dialog } from "@headlessui/react";
@@ -6,7 +7,7 @@ import React from "react";
 import { BiX } from "react-icons/bi";
 
 interface Props {
-  order: IOrder;
+  order: IOrder | IOrderManagement;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

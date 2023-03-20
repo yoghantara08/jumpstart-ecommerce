@@ -13,8 +13,6 @@ const AdminProtectedPage: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(user.role);
-
   useEffect(() => {
     // if user is logged in, redirect to user page
     if (user.role && isLoggedIn === "AUTHENTICATED") {

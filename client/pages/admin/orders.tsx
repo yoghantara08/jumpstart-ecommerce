@@ -17,13 +17,15 @@ const AdminOrdersPage = () => {
   const [filteredOrders, setFilteredOrders] = useState<IOrderManagement[]>([]);
 
   useEffect(() => {
-    getOrdersAPI(token)
-      .then((res) => {
-        setOrders(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (token) {
+      getOrdersAPI(token)
+        .then((res) => {
+          setOrders(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [token]);
 
   useEffect(() => {
