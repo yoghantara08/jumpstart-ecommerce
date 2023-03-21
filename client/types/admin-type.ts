@@ -55,3 +55,10 @@ interface Profile {
   image: string;
   _id: string;
 }
+
+export interface IUserAddForm {
+  email: string;
+  password: string;
+  role: string;
+  username: string;
+}

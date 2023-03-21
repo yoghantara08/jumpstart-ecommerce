@@ -9,7 +9,7 @@ import {
   completeOrder,
   getOrders,
 } from "../controllers/admin-orders.controller";
-import { getUsers } from "../controllers/admin-users.controller";
+import { addUser, getUsers } from "../controllers/admin-users.controller";
 import isAdmin from "../middleware/isAdmin";
 import isAuthenticated from "../middleware/isAuthenticated";
 import { upload } from "../utils/multer-storage";
@@ -17,6 +17,7 @@ import {
   categoryValidation,
   productValidation,
 } from "../validations/product-validation";
+import { validateAddUser } from "../validations/register-validation";
 
 /**
  * Admin Routes
@@ -77,5 +78,14 @@ adminRoute.put(
 // USERS
 // get all user
 adminRoute.get("/users", isAuthenticated, isAdmin, getUsers);
+
+// add user
+adminRoute.post(
+  "/users/add",
+  isAuthenticated,
+  isAdmin,
+  validateAddUser,
+  addUser
+);
 
 export default adminRoute;

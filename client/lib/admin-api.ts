@@ -1,3 +1,4 @@
+import { IUserAddForm } from "@/types/admin-type";
 import { API } from "./config";
 
 // ORDERS
@@ -25,6 +26,12 @@ export const cancelOrderAPI = async (token: string | null, orderId: string) => {
 // USERS
 export const getUsersAPI = async (token: string | null) => {
   return await API.get("/admin/users", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const addUserAPI = async (token: string | null, data: IUserAddForm) => {
+  return await API.post("/admin/users/add", data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };

@@ -18,7 +18,7 @@ const UserData: React.FC<Props> = ({ user }) => {
         {user.email}
       </td>
       <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
-        {formatDate(user.profile.birthday)}
+        {formatDate(user.createdAt)}
       </td>
       <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
         21

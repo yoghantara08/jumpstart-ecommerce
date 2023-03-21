@@ -6,12 +6,15 @@ import { IUser } from "@/types/user-type";
 import { getUsersAPI } from "@/lib/admin-api";
 import { useAuth } from "@/contexts/auth-context";
 import UsersList from "@/components/admin/users/users-list";
+import { BiPlus } from "react-icons/bi";
+import AddUser from "@/components/admin/users/add-user";
 
 const UsersManagement = () => {
   const { token } = useAuth();
   const [search, setSearch] = useState<string | undefined>("");
   const [users, setUsers] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+  const [openAddUser, setOpenAddUser] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -48,9 +51,19 @@ const UsersManagement = () => {
 
   return (
     <AdminProtectedPage>
+      <AddUser isOpen={openAddUser} setIsOpen={setOpenAddUser} />
       <AdminLayout title="Users Management">
         <div className="bg-light rounded-lg py-4 px-6 shadow-sm">
-          <SearchInput setValue={setSearch} />
+          <div className="flex gap-3 flex-wrap justify-between items-center">
+            <SearchInput setValue={setSearch} />
+            <button
+              className="flex gap-2 items-center px-5 py-2 rounded bg-lightBlue hover:opacity-80 text-white font-medium"
+              onClick={() => setOpenAddUser(true)}
+            >
+              <BiPlus />
+              <span>Add User</span>
+            </button>
+          </div>
           <UsersList users={filteredUsers} />
         </div>
       </AdminLayout>
