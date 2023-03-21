@@ -24,8 +24,8 @@ const adminLinks = [
     icon: <FiShoppingBag className="w-5 h-5" />,
   },
   {
-    name: "Customers",
-    path: "/admin/customers",
+    name: "Users",
+    path: "/admin/users",
     icon: <AiOutlineUser className="w-5 h-5" />,
   },
   {

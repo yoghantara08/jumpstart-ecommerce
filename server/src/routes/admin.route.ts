@@ -9,6 +9,7 @@ import {
   completeOrder,
   getOrders,
 } from "../controllers/admin-orders.controller";
+import { getUsers } from "../controllers/admin-users.controller";
 import isAdmin from "../middleware/isAdmin";
 import isAuthenticated from "../middleware/isAuthenticated";
 import { upload } from "../utils/multer-storage";
@@ -72,5 +73,9 @@ adminRoute.put(
   isAdmin,
   cancelOrder
 );
+
+// USERS
+// get all user
+adminRoute.get("/users", isAuthenticated, isAdmin, getUsers);
 
 export default adminRoute;

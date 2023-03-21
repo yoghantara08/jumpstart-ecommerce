@@ -4,7 +4,7 @@ import config from "../config/config";
 import { logger } from "../utils/logger";
 
 const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.get("Authorization");
+  const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ message: "Not authenticated" });
   }
