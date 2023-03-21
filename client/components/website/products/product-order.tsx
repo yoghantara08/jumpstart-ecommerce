@@ -10,10 +10,8 @@ interface Props {
   product: IProducts;
 }
 const ProductOrder: React.FC<Props> = ({ product }) => {
-  const { addItem, cart } = useCart();
-  const { replace } = useRouter();
-
-  console.log(cart);
+  const { addItem } = useCart();
+  const { push } = useRouter();
 
   const options = Array.from(
     { length: product.stock },
@@ -24,7 +22,7 @@ const ProductOrder: React.FC<Props> = ({ product }) => {
 
   const addItemHandler = async () => {
     await addItem(product._id, selectedAmount);
-    replace("/user/cart");
+    push("/user/cart");
   };
 
   return (

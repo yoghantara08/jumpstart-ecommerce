@@ -53,7 +53,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           if (index === existingItemIndex) {
             return {
               ...item,
-              quantity: item.quantity + action.payload.quantity,
+              quantity: action.payload.quantity,
             };
           }
           return item;
@@ -142,6 +142,7 @@ const CartContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const addItem = async (productId: string, quantity: number) => {
     try {
       const response = await addCartItemAPI(token, userId, productId, quantity);
+      console.log(response.data.item);
 
       if (response.data.item) {
         dispatch({

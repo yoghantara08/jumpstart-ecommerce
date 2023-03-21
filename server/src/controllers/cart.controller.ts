@@ -19,7 +19,16 @@ export const getCart = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Cart not found!" });
     }
 
-    return res.status(200).json(cart);
+    // limit the quantity to make sure not exceed the stocks
+    cart.items.map((item: any) => {
+      if (item.quantity > item.product.stock) {
+        item.quantity = item.product.stock;
+      }
+    });
+
+    const newCart = await cart.save();
+
+    return res.status(200).json(newCart);
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res
@@ -62,6 +71,10 @@ export const addCartItem = async (req: Request, res: Response) => {
     if (item) {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       item.quantity += Number(quantity);
+      // limit the quantity
+      if (item.quantity > item.product.stock) {
+        item.quantity = item.product.stock;
+      }
     } else {
       cart.items.push({ product, quantity });
       item = items.find((cartItem) => {
