@@ -5,6 +5,7 @@ import { logger } from "../utils/logger";
 import bcrypt from "bcryptjs";
 import Cart from "../models/cart.model";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 
 // get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -77,3 +78,50 @@ export const addUser = async (req: Request, res: Response) => {
 };
 
 // edit user
+export const editUser = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const isValidId = mongoose.Types.ObjectId.isValid(userId);
+  if (!isValidId) {
+    return res.status(400).json({ message: "Invalid userId!" });
+  }
+
+  try {
+    // body request
+    const {
+      firstName,
+      lastName,
+      country,
+      city,
+      address,
+      phoneNumber,
+      postalCode,
+    } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found!" });
+    }
+
+    if (user.profile) {
+      user.profile.firstName = firstName;
+      user.profile.lastName = lastName;
+      user.profile.country = country;
+      user.profile.city = city;
+      user.profile.address = address;
+      user.profile.phoneNumber = phoneNumber;
+      user.profile.postalCode = postalCode;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "User edited!",
+    });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};

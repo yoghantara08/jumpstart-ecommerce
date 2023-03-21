@@ -62,11 +62,11 @@ const AdminUserMenu = () => {
             </Menu.Item>
             <Menu.Item>
               <Link
-                href="/admin/customers"
+                href="/admin/users"
                 className="flex items-center gap-3 px-3 py-1 hover:bg-gray-200"
               >
                 <BsPerson className="w-5 h-5" />
-                <p>Customers</p>
+                <p>Users</p>
               </Link>
             </Menu.Item>
             <Menu.Item>

@@ -9,7 +9,11 @@ import {
   completeOrder,
   getOrders,
 } from "../controllers/admin-orders.controller";
-import { addUser, getUsers } from "../controllers/admin-users.controller";
+import {
+  addUser,
+  editUser,
+  getUsers,
+} from "../controllers/admin-users.controller";
 import isAdmin from "../middleware/isAdmin";
 import isAuthenticated from "../middleware/isAuthenticated";
 import { upload } from "../utils/multer-storage";
@@ -87,5 +91,8 @@ adminRoute.post(
   validateAddUser,
   addUser
 );
+
+// edit user
+adminRoute.put("/users/edit/:userId", isAuthenticated, isAdmin, editUser);
 
 export default adminRoute;

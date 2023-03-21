@@ -62,3 +62,13 @@ export interface IUserAddForm {
   role: string;
   username: string;
 }
+
+export interface IUserEditForm {
+  firstName: string;
+  lastName: string;
+  country: string;
+  city: string;
+  address: string;
+  phoneNumber: string;
+  postalCode: string;
+}
