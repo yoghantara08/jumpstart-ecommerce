@@ -43,7 +43,12 @@ const UserSettingsProfile = () => {
     editProfileAPI(token, data)
       .then((res) => {
         updateUser(res.data.user);
-        router.push("/user");
+        if (res.data.user.role === "USER") {
+          router.push("/user");
+        }
+        if (res.data.user.role === "ADMIN") {
+          router.push("/admin");
+        }
       })
       .catch((err) => {
         console.log(err);
