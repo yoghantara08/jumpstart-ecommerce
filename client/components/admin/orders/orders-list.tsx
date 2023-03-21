@@ -8,7 +8,7 @@ interface Props {
 
 const OrdersList: React.FC<Props> = ({ orders }) => {
   return (
-    <div className="relative overflow-x-auto mt-2">
+    <div className="w-full mt-2 overflow-x-auto xl:overflow-x-visible">
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-slate-100 text-left">

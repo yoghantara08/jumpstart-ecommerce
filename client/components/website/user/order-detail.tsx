@@ -3,7 +3,7 @@ import { IOrderManagement } from "@/types/admin-type";
 import { IOrder } from "@/types/products-type";
 import formatDate from "@/utils/format-date";
 import { Dialog } from "@headlessui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BiX } from "react-icons/bi";
 
 interface Props {
@@ -13,6 +13,26 @@ interface Props {
 }
 
 const OrderDetails: React.FC<Props> = ({ isOpen, order, setIsOpen }) => {
+  const [statusColor, setStatusColor] = useState("");
+
+  useEffect(() => {
+    switch (order.status) {
+      case "COMPLETED":
+        setStatusColor(
+          "bg-green-200 text-green-600 py-1 px-3 rounded w-fit mt-2"
+        );
+        break;
+      case "PROCESSED":
+        setStatusColor(
+          "bg-yellow-300 text-yellow-700 py-1 px-3 rounded w-fit mt-2"
+        );
+        break;
+      case "CANCELLED":
+        setStatusColor("bg-red-200 text-red-600 py-1 px-3 rounded w-fit mt-2");
+        break;
+    }
+  }, [order.status]);
+
   const closeHandler = () => {
     setIsOpen(false);
   };
@@ -33,11 +53,13 @@ const OrderDetails: React.FC<Props> = ({ isOpen, order, setIsOpen }) => {
             <span className="font-montserrat font-medium">Order Details</span>
             <BiX className="text-2xl cursor-pointer" onClick={closeHandler} />
           </Dialog.Title>
+
           <div className="px-5 py-3">
             <p>
               Order Id: <span className="text-yellow-600">#{order._id}</span>
             </p>
             <p>Date: {date}</p>
+            <p className={statusColor}>{order.status}</p>
             <div className="grid grid-cols-4 border-b mt-1 py-2">
               <h4>Product</h4>
               <h4 className="col-span-2">Product Name</h4>

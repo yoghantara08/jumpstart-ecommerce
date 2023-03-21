@@ -41,7 +41,7 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
       </Head>
       <div className="flex min-h-screen text-dark font-roboto bg-adminBg">
         {toggle && <AdminSidebar />}
-        <div className="lg:ml-[300px] w-full">
+        <div className="lg:ml-[300px] w-full overflow-x-hidden">
           <AdminNavbar toggle={toggle} setToggle={setToggle} title={title} />
           <main className="p-5">{children}</main>
         </div>
