@@ -77,3 +77,14 @@ export interface IStats {
   name: string;
   amount: string | number;
 }
+
+export interface ITopProducts {
+  _id: string;
+  name: string;
+  slug: string;
+  category: string;
+  image: string;
+  price: string;
+  quantity: number;
+  totalPrice: number;
+}

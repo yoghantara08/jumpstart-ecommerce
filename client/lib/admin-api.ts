@@ -1,4 +1,4 @@
-import { IUserAddForm, IUserEditForm } from "@/types/admin-type";
+import { ITopProducts, IUserAddForm, IUserEditForm } from "@/types/admin-type";
 import { API } from "./config";
 
 // ORDERS
@@ -58,6 +58,12 @@ export const userTotalOrderAPI = async (
 // DASHBOARD
 export const getStatsAPI = async (token: string | null) => {
   return await API.get("/admin/stats", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const getTopProductsAPI = async (token: string | null) => {
+  return await API.get<ITopProducts[]>("/admin/top-products", {
     headers: { Authorization: `Bearer ${token}` },
   });
 };

@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getStats } from "../controllers/admin-dashboard.controller";
+import {
+  getStats,
+  getTopSellingProducts,
+} from "../controllers/admin-dashboard.controller";
 import {
   addCategory,
   addProduct,
@@ -108,5 +111,13 @@ adminRoute.get(
 // DASHBOARD
 // get stats
 adminRoute.get("/stats", isAuthenticated, isAdmin, getStats);
+
+// top products
+adminRoute.get(
+  "/top-products",
+  isAuthenticated,
+  isAdmin,
+  getTopSellingProducts
+);
 
 export default adminRoute;
