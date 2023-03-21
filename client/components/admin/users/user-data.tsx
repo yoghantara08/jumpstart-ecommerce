@@ -1,6 +1,8 @@
+import { useAuth } from "@/contexts/auth-context";
+import { userTotalOrderAPI } from "@/lib/admin-api";
 import { IUser } from "@/types/user-type";
 import formatDate from "@/utils/format-date";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import EditUser from "./edit-user";
 
@@ -9,7 +11,22 @@ interface Props {
 }
 
 const UserData: React.FC<Props> = ({ user }) => {
+  const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [totalOrder, setTotalOrder] = useState();
+
+  useEffect(() => {
+    if (token) {
+      userTotalOrderAPI(token, user._id)
+        .then((res) => {
+          setTotalOrder(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [token, user._id]);
+
   return (
     <>
       {isOpen && (
@@ -36,7 +53,7 @@ const UserData: React.FC<Props> = ({ user }) => {
           {formatDate(user.createdAt)}
         </td>
         <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
-          21
+          {totalOrder}
         </td>
         <td className="border border-slate-200 px-6 py-3 whitespace-nowrap">
           {user.provider}

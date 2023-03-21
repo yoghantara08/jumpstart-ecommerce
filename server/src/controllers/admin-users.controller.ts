@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import Cart from "../models/cart.model";
 import { validationResult } from "express-validator";
 import mongoose from "mongoose";
+import Order from "../models/order.model";
 
 // get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -118,6 +119,30 @@ export const editUser = async (req: Request, res: Response) => {
     return res.status(200).json({
       message: "User edited!",
     });
+  } catch (error) {
+    logger.error(error, "Internal Server Error 500");
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal Server Error 500", error });
+  }
+};
+
+// total order
+export const userTotalOrder = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const isValidId = mongoose.Types.ObjectId.isValid(userId);
+  if (!isValidId) {
+    return res.status(400).json({ message: "Invalid userId!" });
+  }
+
+  try {
+    const orders = await Order.find({ userId });
+
+    if (!orders) {
+      return res.status(200).json(0);
+    }
+
+    return res.status(200).json(orders.length);
   } catch (error) {
     logger.error(error, "Internal Server Error 500");
     return res

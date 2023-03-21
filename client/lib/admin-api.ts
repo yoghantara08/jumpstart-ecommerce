@@ -45,3 +45,12 @@ export const editUserAPI = async (
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const userTotalOrderAPI = async (
+  token: string | null,
+  userId: string
+) => {
+  return await API.get(`/admin/users/total-order/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

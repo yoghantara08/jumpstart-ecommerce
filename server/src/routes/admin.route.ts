@@ -13,6 +13,7 @@ import {
   addUser,
   editUser,
   getUsers,
+  userTotalOrder,
 } from "../controllers/admin-users.controller";
 import isAdmin from "../middleware/isAdmin";
 import isAuthenticated from "../middleware/isAuthenticated";
@@ -94,5 +95,13 @@ adminRoute.post(
 
 // edit user
 adminRoute.put("/users/edit/:userId", isAuthenticated, isAdmin, editUser);
+
+// user total order
+adminRoute.get(
+  "/users/total-order/:userId",
+  isAuthenticated,
+  isAdmin,
+  userTotalOrder
+);
 
 export default adminRoute;
