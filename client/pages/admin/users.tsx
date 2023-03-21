@@ -26,10 +26,25 @@ const UsersManagement = () => {
   }, [token]);
 
   useEffect(() => {
-    if (users) {
+    if (search === undefined || search === "") {
+      // If search is empty, set the users to the original list
       setFilteredUsers(users);
+    } else {
+      // Filter the users based on the search term
+      const filteredUsers = users.filter((user) => {
+        const searchTerm = search.toLowerCase();
+        return (
+          user.email.toLowerCase().includes(searchTerm) ||
+          user.profile.firstName.toLowerCase().includes(searchTerm) ||
+          user.profile.lastName.toLowerCase().includes(searchTerm) ||
+          user.provider.toLowerCase().includes(searchTerm) ||
+          user.role.toLowerCase().includes(searchTerm)
+        );
+      });
+
+      setFilteredUsers(filteredUsers);
     }
-  }, [users]);
+  }, [search, users]);
 
   return (
     <AdminProtectedPage>
