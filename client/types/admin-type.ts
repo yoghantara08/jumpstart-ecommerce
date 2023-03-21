@@ -72,3 +72,8 @@ export interface IUserEditForm {
   phoneNumber: string;
   postalCode: string;
 }
+
+export interface IStats {
+  name: string;
+  amount: string | number;
+}

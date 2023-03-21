@@ -54,3 +54,10 @@ export const userTotalOrderAPI = async (
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+// DASHBOARD
+export const getStatsAPI = async (token: string | null) => {
+  return await API.get("/admin/stats", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
