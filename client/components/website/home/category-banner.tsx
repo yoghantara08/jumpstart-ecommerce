@@ -17,7 +17,7 @@ const CategoryBanner = () => {
           className="md:col-span-2 category-banner"
           style={{ backgroundImage: "url(/banner/accessories.jpg)" }}
         >
-          <CategoryText title="Accesories" itemCount={32} path="Accesories" />
+          <CategoryText title="Accesories" itemCount={32} path="Accessories" />
         </div>
         <div
           className="category-banner"
