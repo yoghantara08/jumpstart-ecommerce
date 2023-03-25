@@ -4,14 +4,12 @@ import Product from "../models/product.model";
 
 export const categoryValidation = [
   // name
-  body("name")
-    .custom(async (value) => {
-      const category = await Category.findOne({ name: value });
-      if (category) {
-        return await Promise.reject("Category name has already exist!");
-      }
-    })
-    .normalizeEmail(),
+  body("name").custom(async (value) => {
+    const category = await Category.findOne({ name: value });
+    if (category) {
+      return await Promise.reject("Category name has already exist!");
+    }
+  }),
 ];
 
 export const productValidation = [
