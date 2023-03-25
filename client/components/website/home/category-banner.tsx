@@ -11,25 +11,25 @@ const CategoryBanner = () => {
           className="md:row-span-2 category-banner"
           style={{ backgroundImage: "url(/banner/electronics.jpg)" }}
         >
-          <CategoryText title="Electronics" itemCount={27} path="electronics" />
+          <CategoryText title="Electronics" itemCount={27} path="Electronics" />
         </div>
         <div
           className="md:col-span-2 category-banner"
           style={{ backgroundImage: "url(/banner/accessories.jpg)" }}
         >
-          <CategoryText title="Accesories" itemCount={32} path="accesories" />
+          <CategoryText title="Accesories" itemCount={32} path="Accesories" />
         </div>
         <div
           className="category-banner"
           style={{ backgroundImage: "url(/banner/sports.jpg)" }}
         >
-          <CategoryText title="Sports" itemCount={8} path="sports" />
+          <CategoryText title="Sports" itemCount={8} path="Sports" />
         </div>
         <div
           className="category-banner"
           style={{ backgroundImage: "url(/banner/t-shirt.jpg)" }}
         >
-          <CategoryText title="T-shirt" itemCount={15} path="t-shirt" />
+          <CategoryText title="T-shirt" itemCount={15} path="T-shirt" />
         </div>
       </div>
     </section>
