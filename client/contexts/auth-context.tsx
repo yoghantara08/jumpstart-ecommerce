@@ -44,6 +44,7 @@ const authReducer = (
         isLoggedIn: "AUTHENTICATED",
       };
     case "LOGOUT":
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,
