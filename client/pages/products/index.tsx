@@ -31,9 +31,17 @@ const ProductsPage: React.FC<Props> = ({ products }) => {
   useEffect(() => {
     let filteredProducts = [...products];
 
+    if (query.q) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes((query.q as string).toLowerCase())
+      );
+    }
+
     if (query.category) {
       filteredProducts = filteredProducts.filter(
-        (product) => product.category === query.category
+        (product) =>
+          product.category.toLowerCase() ===
+          (query.category as string).toLowerCase()
       );
     }
 
